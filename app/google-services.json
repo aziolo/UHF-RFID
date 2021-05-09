@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "582425535306",
+    "project_id": "uhf-rfid-317b1",
+    "storage_bucket": "uhf-rfid-317b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582425535306:android:0302c1c2a753f2ac3717b3",
+        "android_client_info": {
+          "package_name": "ale.ziolo.uhf_rfid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582425535306-g2n5diasnp7q7e8e93ui8chc5a8o2bp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ale.ziolo.uhf_rfid",
+            "certificate_hash": "9cf5af1ec6e6f5b9c9fc56de17f0fbf3c917a298"
+          }
+        },
+        {
+          "client_id": "582425535306-5ndsb3b7tqc9km26e9qaja8ltd13gu7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUUUVpAS-bWLMuZg3qxzrQC7W9mlLdRlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582425535306-2as38il829cvml3dfep4mkago7fsprdq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

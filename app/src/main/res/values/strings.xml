@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">UHF-RFID</string>
+    <string name="logo">logo</string>
+    <string name="icon">ikona</string>
+
+    //create profile
+    <string name="sign_up">Zarejestruj się</string>
+    <string name="login">Zaloguj się</string>
+    <string name="synchronize">Czy chcesz, aby połączyć profil z zachowanymi wcześniej danymi?</string>
+    <string name="password_length">Hasło za krótkie, min. 6 znaków!</string>
+    <string name="synchro_good">Kopia zapasowa została utworzona.</string>
+    <string name="synchro_bad">Synchronizacja nie powiodła się. Spróbuj ponownie pózniej.</string>
+    <string name="auth_failed">Autoryzacja nie powiodła się. Spróbuj ponownie.</string>
+    <string name="auth_failed_early">Usługa chwilowo niedostępna. Spróbuj ponownie później.</string>
+    <string name="email_already_used">Zły adres email lub istnieje już inne konto powiązane z tym adresem.</string>
+    <string name="bad_email">Zły e-mail lub hasło. Spróbuj ponownie.</string>
+    <string name="correct_update">Zaktualizowano pomyślnie.</string>
+    <string name="failed_update">Nie udało się zaktualizować. Spróbuj ponownie.</string>
+    <string name="try_again">Nie udało się. Spróbuj ponownie.</string>
+    <string name="loading">ładuję…</string>
+
+    <string name="complete_all">Uzupełnij wszystkie dane!</string>
+    <string name="profile_saved">Zapisano profil.</string>
+    <string name="profile_updated">Zaktualizowano profil</string>
+    <string name="email">E-mail</string>
+    <string name="password">Hasło</string>
+    <string name="name">Imię i Nazwisko</string>
+    <string name="others">Inne</string>
+    <string name="google_authorization">konto Google</string>
+    <string name="create_new_account">Stwórz nowe konto w aplikacji i bądź na zawsze gotowy do wyjścia ze wszystkim czego potrzebujesz.</string>
+    <string name="log_in_start">Zaloguj się i zabieraj ze sobą rzeczy, któych potrzebujesz</string>
+    <string name="use_email_password">E-mail i hasło</string>
+    <string name="next">Dalej</string>
+    <string name="log_out">wyloguj</string>
+    <string name="loged_out">Pomyślnie wylogowano.</string>
+    <string name="logout_confirm">Czy na pewno chcesz sie wylogować?</string>
 </resources>
