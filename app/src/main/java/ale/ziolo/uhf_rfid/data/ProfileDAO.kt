@@ -1,0 +1,27 @@
+package ale.ziolo.uhf_rfid.data
+
+import androidx.lifecycle.LiveData
+import androidx.room.*
+
+@Dao
+interface ProfileDAO {
+    @Query("SELECT * FROM profile")
+    fun getAll(): LiveData<List<ProfileEntity>>
+
+    @Query("SELECT * FROM profile WHERE email LIKE :uid")
+    fun getProfile(uid: String): ProfileEntity
+
+    @Query("SELECT * FROM profile")
+    fun getOneAndOnly(): ProfileEntity
+
+    @Insert
+    fun insertAll(vararg profile: ProfileEntity)
+
+    @Delete
+    fun delete(profile: ProfileEntity)
+
+    @Update
+    fun updateProfile(vararg profileUpd: ProfileEntity)
+
+    //vararg we can put more than one value
+}

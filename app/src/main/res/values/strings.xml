@@ -27,6 +27,7 @@
     <string name="name">Imię i Nazwisko</string>
     <string name="others">Inne</string>
     <string name="google_authorization">konto Google</string>
+    <string name="profile">Szczegóły konta</string>
     <string name="create_new_account">Stwórz nowe konto w aplikacji i bądź na zawsze gotowy do wyjścia ze wszystkim czego potrzebujesz.</string>
     <string name="log_in_start">Zaloguj się i zabieraj ze sobą rzeczy, któych potrzebujesz</string>
     <string name="use_email_password">E-mail i hasło</string>
@@ -34,4 +35,7 @@
     <string name="log_out">wyloguj</string>
     <string name="loged_out">Pomyślnie wylogowano.</string>
     <string name="logout_confirm">Czy na pewno chcesz sie wylogować?</string>
+    <string name="save">Zapisz</string>
+    <string name="device_id"> Idetyfikator urządzenia RFID</string>
+    <string name="info_rule">Identyfikator znajdziesz tam i tam</string>
 </resources>

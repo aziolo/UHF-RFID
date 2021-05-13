@@ -122,14 +122,14 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     if (state == 1) {
                         //new user with google account
-                        val intent = Intent(this, SynchronizeActivity::class.java)
+                        val intent = Intent(this, CreateAccountActivity::class.java)
                         intent.putExtra("email", account.email.toString())
                         intent.putExtra("name", account.displayName.toString())
                         intent.putExtra("state", "log")
                         startActivity(intent)
                     }
                     if (state == 2) {
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, SynchronizeActivity::class.java)
                         intent.putExtra("mode", "download")
                         intent.putExtra("email", account.email.toString())
                         intent.putExtra("name", account.displayName.toString())
@@ -150,7 +150,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     //Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "createUserWithEmail:success")
-                    val intent = Intent(this, SynchronizeActivity::class.java)
+                    val intent = Intent(this, CreateAccountActivity::class.java)
                     intent.putExtra("name", mNAME)
                     intent.putExtra("email", mEMAIL)
                     intent.putExtra("password", mPASSWORD)
@@ -174,7 +174,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithEmail:success")
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, SynchronizeActivity::class.java)
                     intent.putExtra("mode", "download")
                     intent.putExtra("email", mEMAIL)
                     intent.putExtra("name", mNAME)
