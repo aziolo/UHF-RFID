@@ -168,6 +168,7 @@ class ManageAccountActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 val intent1 = Intent(this, AddDeviceActivity::class.java)
+                intent1.putExtra("state", "first")
                 startActivity(intent1)
             } catch (e: Exception) {
                 Toast.makeText(

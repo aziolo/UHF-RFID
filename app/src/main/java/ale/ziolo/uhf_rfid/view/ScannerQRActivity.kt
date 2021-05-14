@@ -30,10 +30,13 @@ class ScannerQRActivity : AppCompatActivity() {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var analyzer: MyImageAnalyzer
+    private lateinit var state: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner_qr)
+        val intent = intent
+        state = intent.getStringExtra("state").toString()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -46,7 +49,7 @@ class ScannerQRActivity : AppCompatActivity() {
         }
         checkCameraPermission()
 
-        analyzer = MyImageAnalyzer(supportFragmentManager, this)
+        analyzer = MyImageAnalyzer(supportFragmentManager, state)
         cameraExecutor = Executors.newSingleThreadExecutor()
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 

@@ -21,15 +21,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BarcodeResultBottomSheet.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BarcodeResultBottomSheet : BottomSheetDialogFragment() {
+class BarcodeResultBottomSheet(state: String) : BottomSheetDialogFragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var state = state
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            state = it.getString(ARG_PARAM1).toString()
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -48,13 +48,25 @@ class BarcodeResultBottomSheet : BottomSheetDialogFragment() {
             text_qr.text = tag
             text_qr_title.text = resources.getString(R.string.read_qr)
             bottoom_accept.setOnClickListener {
-                val intent = Intent(
-                    activity!!.baseContext,
-                    AddDeviceActivity::class.java
-                )
-                intent.putExtra("tag", tag)
-                intent.putExtra("state", "add_device")
-                activity!!.startActivity(intent)
+                if(state == "device"){
+                    val intent = Intent(
+                        activity!!.baseContext,
+                        AddDeviceActivity::class.java
+                    )
+                    intent.putExtra("tag", tag)
+                    intent.putExtra("state_tag", "add_device")
+                    activity!!.startActivity(intent)
+                }
+                if(state == "item"){
+                    val intent = Intent(
+                        activity!!.baseContext,
+                        AddItemActivity::class.java
+                    )
+                    intent.putExtra("tag", tag)
+                    intent.putExtra("state_tag", "add_item")
+                    activity!!.startActivity(intent)
+                }
+
             }
         }
     }
@@ -72,7 +84,7 @@ class BarcodeResultBottomSheet : BottomSheetDialogFragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            BarcodeResultBottomSheet().apply {
+            BarcodeResultBottomSheet(param1).apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

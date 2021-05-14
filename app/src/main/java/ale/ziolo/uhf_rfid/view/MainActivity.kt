@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         button2.setOnClickListener {
 
             val intent = Intent(this, AddDeviceActivity::class.java)
+            intent.putExtra("state", "next")
             startActivity(intent)
         }
     }

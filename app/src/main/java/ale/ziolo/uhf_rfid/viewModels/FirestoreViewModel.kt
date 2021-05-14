@@ -3,6 +3,7 @@ package ale.ziolo.uhf_rfid.viewModels
 import ale.ziolo.uhf_rfid.repositories.FirestoreRepository
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
+import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.model.entities.ReadingEntity
 import android.app.Application
@@ -20,6 +21,7 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     private var savedReadingList: MutableLiveData<List<ReadingEntity>> = MutableLiveData()
     private var profile: MutableLiveData<List<ProfileEntity>> = MutableLiveData()
     private var device: MutableLiveData<List<DeviceEntity>> = MutableLiveData()
+    private var item: MutableLiveData<List<ItemEntity>> = MutableLiveData()
 
     fun logOut() {
         firebaseRepository.logOut()
@@ -78,6 +80,15 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 Log.e(TAG, "Error adding document", e)
             }
     }
+
+    fun saveItem(itemEntity: ItemEntity) {
+        firebaseRepository.saveItemToFirebase(itemEntity)
+            .addOnSuccessListener { Log.i(TAG, "Successfully add Device to Database Firestore!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error adding document", e)
+            }
+    }
+
     companion object {
         const val TAG = "FIRESTORE_VIEW_MODEL"
     }

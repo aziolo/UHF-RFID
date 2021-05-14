@@ -16,6 +16,6 @@ interface DeviceDAO {
     fun insertAll(vararg device: DeviceEntity)
 
     @Delete
-    fun delete(profile: DeviceEntity)
+    fun delete(device: DeviceEntity)
 
 }

@@ -47,10 +47,15 @@
     <string name="identifier">Identyfikator</string>
     <string name="device_saved">Zapisano urządzenie monitorujące.</string>
 
-
     // qr code
     <string name="read_qr">Odczytany QR kod:</string>
     <string name="ok">OK</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    // new item
+    <string name="add_item">Dodaj element do monitiriwania</string>
+    <string name="item_intro">Możesz to zrobić skanując kod QR lub wpisując ręcznie jego identyfikator z urządzenia</string>
+    <string name="item_saved">Zapisano element do monitorowania.</string>
+    <string name="item_name">Nazwa</string>
+    <string name="bad_id">Zły kod identyfikujący!</string>
+
 </resources>

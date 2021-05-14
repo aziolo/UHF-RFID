@@ -12,13 +12,13 @@ import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
 class MyImageAnalyzer(
-    private val fragmentManager: FragmentManager, context: Context
+    private val fragmentManager: FragmentManager, state: String
 ) : ImageAnalysis.Analyzer {
 
-    private var bottomSheet = BarcodeResultBottomSheet()
+    private var state = state
+    private var bottomSheet = BarcodeResultBottomSheet(state)
 
     lateinit var tagtag: String
-    val context = context
 
     override fun analyze(imageProxy: ImageProxy) {
         scanBarcode(imageProxy)
