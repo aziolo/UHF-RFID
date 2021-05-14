@@ -1,12 +1,10 @@
-package ale.ziolo.uhf_rfid
+package ale.ziolo.uhf_rfid.view
 
-import android.app.Activity
+import ale.ziolo.uhf_rfid.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_synchronize.*
 
 class SynchronizeActivity : AppCompatActivity() {
 
@@ -40,7 +38,7 @@ class SynchronizeActivity : AppCompatActivity() {
         builder.setNegativeButton("NIE") { _, _ ->
             val name = intent.getStringExtra("name")
             val email = intent.getStringExtra("email")
-            val intent = Intent(this, CreateAccountActivity::class.java)
+            val intent = Intent(this, ManageAccountActivity::class.java)
             intent.putExtra("email", email)
             intent.putExtra("name", name)
             intent.putExtra("state", "log")

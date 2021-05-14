@@ -1,7 +1,7 @@
-package ale.ziolo.uhf_rfid.vieModels
+package ale.ziolo.uhf_rfid.viewModels
 
-import ale.ziolo.uhf_rfid.data.ProfileEntity
-import ale.ziolo.uhf_rfid.data.ProfileLocalRepository
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.repositories.ProfileLocalRepository
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 

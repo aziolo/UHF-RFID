@@ -1,4 +1,4 @@
-package ale.ziolo.uhf_rfid.data
+package ale.ziolo.uhf_rfid.model.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,16 +1,16 @@
-package ale.ziolo.uhf_rfid.vieModels
+package ale.ziolo.uhf_rfid.viewModels
 
-import ale.ziolo.uhf_rfid.FirestoreRepository
+import ale.ziolo.uhf_rfid.repositories.FirestoreRepository
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.data.ProfileEntity
-import ale.ziolo.uhf_rfid.data.ReadingEntity
+import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.model.entities.ReadingEntity
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.QuerySnapshot
 
 class FirestoreViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,6 +19,7 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
         FirestoreRepository(application)
     private var savedReadingList: MutableLiveData<List<ReadingEntity>> = MutableLiveData()
     private var profile: MutableLiveData<List<ProfileEntity>> = MutableLiveData()
+    private var device: MutableLiveData<List<DeviceEntity>> = MutableLiveData()
 
     fun logOut() {
         firebaseRepository.logOut()
@@ -70,6 +71,13 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
             }
     }
 
+    fun saveDevice(deviceEntity: DeviceEntity) {
+        firebaseRepository.saveDeviceToFirebase(deviceEntity)
+            .addOnSuccessListener { Log.i(TAG, "Successfully add Device to Database Firestore!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error adding document", e)
+            }
+    }
     companion object {
         const val TAG = "FIRESTORE_VIEW_MODEL"
     }

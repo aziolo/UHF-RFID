@@ -1,5 +1,8 @@
-package ale.ziolo.uhf_rfid
+package ale.ziolo.uhf_rfid.view
 
+import ale.ziolo.uhf_rfid.R
+import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.viewModels.ProfileViewModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,13 +16,34 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
     private var state: Int = 0
     private var mEMAIL: String = ""
     private var mNAME: String = ""
     private var mPASSWORD: String = ""
+
+    private lateinit var user: FirebaseUser
+
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
+    private val profileViewModel: ProfileViewModel by lazy {
+        ViewModelProviders.of(this).get(
+            ProfileViewModel::class.java
+        )
+    }
+    private val firestoreViewModel: FirestoreViewModel by lazy {
+        ViewModelProviders.of(this).get(
+            FirestoreViewModel::class.java
+        )
+    }
+
 
     // Configure Google Sign In
     private lateinit var auth: FirebaseAuth
@@ -61,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         email_button.setOnClickListener {
-            use_email_CV.isVisible = true
+            use_identifier_CV.isVisible = true
             if (state == 2) {
                 input_name.isVisible = false
                 image_name.isVisible = false
@@ -122,11 +146,12 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     if (state == 1) {
                         //new user with google account
-                        val intent = Intent(this, CreateAccountActivity::class.java)
+                        val intent = Intent(this, ManageAccountActivity::class.java)
                         intent.putExtra("email", account.email.toString())
                         intent.putExtra("name", account.displayName.toString())
                         intent.putExtra("state", "log")
                         startActivity(intent)
+
                     }
                     if (state == 2) {
                         val intent = Intent(this, SynchronizeActivity::class.java)
@@ -150,12 +175,13 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     //Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "createUserWithEmail:success")
-                    val intent = Intent(this, CreateAccountActivity::class.java)
+                    val intent = Intent(this, ManageAccountActivity::class.java)
                     intent.putExtra("name", mNAME)
                     intent.putExtra("email", mEMAIL)
                     intent.putExtra("password", mPASSWORD)
                     intent.putExtra("state", "create_email")
                     startActivity(intent)
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("TAG", "createUserWithEmail:failure", task.exception)
@@ -198,7 +224,7 @@ class LoginActivity : AppCompatActivity() {
             startCV.isVisible = true
             loginCV.isVisible = false
             button_back.isVisible = false
-            use_email_CV.isVisible = false
+            use_identifier_CV.isVisible = false
         }
         if (current == 1) {
             //new user

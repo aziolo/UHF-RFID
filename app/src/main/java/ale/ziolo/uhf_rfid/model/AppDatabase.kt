@@ -1,15 +1,21 @@
-package ale.ziolo.uhf_rfid.data
+package ale.ziolo.uhf_rfid.model
+import ale.ziolo.uhf_rfid.model.daos.DeviceDAO
+import ale.ziolo.uhf_rfid.model.daos.ProfileDAO
+import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.model.entities.ReadingEntity
 import android.content.Context
 import androidx.room.Database
 import androidx.room.*
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [ProfileEntity::class, ReadingEntity::class],
+    entities = [ProfileEntity::class, DeviceEntity::class, ReadingEntity::class],
     version = 1
 )
 abstract class AppDataBase : RoomDatabase(){
     abstract fun ProfileDAO(): ProfileDAO
+    abstract fun DeviceDAO(): DeviceDAO
 
     companion object {
 

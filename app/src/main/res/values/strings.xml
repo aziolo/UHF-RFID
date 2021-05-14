@@ -38,4 +38,19 @@
     <string name="save">Zapisz</string>
     <string name="device_id"> Idetyfikator urządzenia RFID</string>
     <string name="info_rule">Identyfikator znajdziesz tam i tam</string>
+
+    // new device
+    <string name="add_device">Dodaj urządzenie monitorujące</string>
+    <string name="device_intro">Możesz to zrobić skanując kod QR lub wpisując ręcznie jego identyfikator z urządzenia</string>
+    <string name="use_qr">Skanuj kod QR</string>
+    <string name="use_text">Wpisz identyfikator</string>
+    <string name="identifier">Identyfikator</string>
+    <string name="device_saved">Zapisano urządzenie monitorujące.</string>
+
+
+    // qr code
+    <string name="read_qr">Odczytany QR kod:</string>
+    <string name="ok">OK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

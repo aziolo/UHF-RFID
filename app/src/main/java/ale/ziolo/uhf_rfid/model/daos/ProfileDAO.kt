@@ -1,5 +1,6 @@
-package ale.ziolo.uhf_rfid.data
+package ale.ziolo.uhf_rfid.model.daos
 
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import androidx.lifecycle.LiveData
 import androidx.room.*
 

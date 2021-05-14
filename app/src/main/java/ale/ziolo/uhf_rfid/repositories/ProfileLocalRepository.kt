@@ -1,12 +1,12 @@
-package ale.ziolo.uhf_rfid.data
+package ale.ziolo.uhf_rfid.repositories
 
-import ale.ziolo.uhf_rfid.MainActivity
+import ale.ziolo.uhf_rfid.model.AppDataBase
+import ale.ziolo.uhf_rfid.model.daos.ProfileDAO
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.os.AsyncTask
 import android.util.Log
-import java.util.concurrent.Flow
 
 class ProfileLocalRepository(private val application: Application) {
     private var profileDao: ProfileDAO
@@ -85,12 +85,6 @@ class ProfileLocalRepository(private val application: Application) {
             }
         }
 
-        override fun onPostExecute(result: Unit?) {
-            super.onPostExecute(result)
-            val intent = Intent(con, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            con.startActivity(intent)
-        }
     }
 
 

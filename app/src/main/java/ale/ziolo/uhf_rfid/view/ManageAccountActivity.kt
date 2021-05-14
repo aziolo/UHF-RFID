@@ -1,26 +1,25 @@
-package ale.ziolo.uhf_rfid
+package ale.ziolo.uhf_rfid.view
 
-import ale.ziolo.uhf_rfid.data.ProfileEntity
-import ale.ziolo.uhf_rfid.vieModels.FirestoreViewModel
-import ale.ziolo.uhf_rfid.vieModels.ProfileViewModel
+import ale.ziolo.uhf_rfid.R
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.viewModels.ProfileViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_create_account.*
+import kotlinx.android.synthetic.main.activity_manage_account.*
 import java.util.*
 import javax.inject.Inject
 
-class CreateAccountActivity : AppCompatActivity() {
+class ManageAccountActivity : AppCompatActivity() {
 
-    private var ruleType: Int = 0
     private lateinit var mEmail: String
     private lateinit var mName: String
     private lateinit var auth: FirebaseAuth
@@ -39,9 +38,10 @@ class CreateAccountActivity : AppCompatActivity() {
             FirestoreViewModel::class.java
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_account)
+        setContentView(R.layout.activity_manage_account)
 
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
@@ -51,24 +51,37 @@ class CreateAccountActivity : AppCompatActivity() {
             mEmail = user.email!!
             mName = user.displayName!!
             fillOldValues()
-        }
-        if (state == "create_email" || state == "log") {
-            mEmail = intent.getStringExtra("email").toString()
-            mName = intent.getStringExtra("name").toString()
-
-        }
-        if (state == "create_google") {
-            mEmail = user.email!!
-            mName = user.displayName!!
+            input_name_acc.text = Editable.Factory.getInstance()
+                .newEditable(mName)
+            input_email.text = Editable.Factory.getInstance()
+                .newEditable(mEmail)
         }
 
         button_save_account.setOnClickListener {
             checkAccount()
         }
-        input_name_acc.text = Editable.Factory.getInstance()
-            .newEditable(mName)
-        input_email.text = Editable.Factory.getInstance()
-            .newEditable(mEmail)
+
+    }
+    public override fun onStart() {
+        super.onStart()
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
+        state = intent.getStringExtra("state").toString()
+        setStatus()
+    }
+
+    private fun setStatus(){
+        if (state == "create_email" || state == "log") {
+            mEmail = intent.getStringExtra("email").toString()
+            mName = intent.getStringExtra("name").toString()
+            createAccount()
+
+        }
+        if (state == "create_google") {
+            mEmail = user.email!!
+            mName = user.displayName!!
+            createAccount()
+        }
 
     }
 
@@ -83,34 +96,10 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun checkAccount() {
         if (input_name_acc.text.isNotEmpty() && input_email.text.isNotEmpty() && input_device.text.isNotEmpty()) {
 
-            if (state == "create_google" || state == "create_email" || state == "log") {
-                try {
-                    createProfileEntity(
-                        input_name_acc.text.toString(),
-                        input_email.text.toString(),
-                        input_device.text.toString(),
-                    )
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.profile_saved),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.try_again),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-            }
             if (state == "edit") {
                 try {
                     updateProfile(
-                        input_name_acc.text.toString(),
-                        input_device.text.toString()
+                        input_name_acc.text.toString()
                     )
                     Toast.makeText(
                         this,
@@ -139,8 +128,7 @@ class CreateAccountActivity : AppCompatActivity() {
 
     private fun createProfileEntity(
         name: String,
-        email: String,
-        deviceID: String
+        email: String
     ) {
         val uuid: UUID = UUID.randomUUID()
         val id1: Long = uuid.mostSignificantBits
@@ -149,26 +137,46 @@ class CreateAccountActivity : AppCompatActivity() {
             id1,
             id2,
             name,
-            email,
-            deviceID
+            email
         )
         profileViewModel.insertProfile(profile)
         firestoreViewModel.saveProfile(profile)
     }
 
     private fun updateProfile(
-        name: String,
-        deviceID: String
+        name: String
     ) {
         val old = profileViewModel.getOneProfile()
         val updated = ProfileEntity(
             old.id1,
             old.id2,
             name,
-            old.email,
-            deviceID
+            old.email
         )
         profileViewModel.updateProfile(updated)
+    }
+
+    private fun createAccount(){
+            try {
+                createProfileEntity(
+                    mName,
+                    mEmail,
+                )
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.profile_saved),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent1 = Intent(this, AddDeviceActivity::class.java)
+                startActivity(intent1)
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.try_again),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
     }
 
 }

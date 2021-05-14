@@ -1,6 +1,7 @@
-package ale.ziolo.uhf_rfid
+package ale.ziolo.uhf_rfid.repositories
 
-import ale.ziolo.uhf_rfid.data.ProfileEntity
+import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import android.app.Application
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -16,19 +17,15 @@ class FirestoreRepository(val application: Application) {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val user: FirebaseUser = auth.currentUser!!
 
-    private val readingsCollectionReference = firestoreDB.collection("users")
-        .document(user.uid)
-        .collection("readings")
-
     private val profileDocumentReference = firestoreDB.collection("users")
         .document(user.uid)
 
+    private val deviceCollectionReference = firestoreDB.collection("users")
+        .document(user.uid)
+        .collection("devices")
+
     fun logOut() {
         auth.signOut()
-    }
-
-    fun getAllReadingsFromFirestore(): CollectionReference {
-        return readingsCollectionReference
     }
 
     fun getProfileFromFirestore(): DocumentReference {
@@ -38,6 +35,7 @@ class FirestoreRepository(val application: Application) {
     fun saveProfileToFirebase(profileEntity: ProfileEntity): Task<Void> {
         return profileDocumentReference.set(profileEntity)
     }
+
     fun updateFirestore(
         profile: ProfileEntity
     ): Task<Transaction> {
@@ -46,5 +44,13 @@ class FirestoreRepository(val application: Application) {
             transaction.set(profileDocumentReference, profile)
         }
     }
+    fun saveDeviceToFirebase(
+        device: DeviceEntity
+    ): Task<Transaction> {
+        return firestoreDB.runTransaction { transaction ->
+            transaction.set(deviceCollectionReference.document(device.tag), device)
+            }
+        }
+
 }
 
