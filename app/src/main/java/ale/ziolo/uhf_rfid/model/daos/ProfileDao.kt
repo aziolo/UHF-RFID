@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface ProfileDAO {
+interface ProfileDao {
     @Query("SELECT * FROM profile")
     fun getAll(): LiveData<List<ProfileEntity>>
 

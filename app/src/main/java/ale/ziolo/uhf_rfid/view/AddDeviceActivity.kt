@@ -4,6 +4,7 @@ import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
 import ale.ziolo.uhf_rfid.viewModels.DeviceViewModel
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -55,7 +56,7 @@ class AddDeviceActivity : AppCompatActivity() {
         }
 
         button_add_device.setOnClickListener {
-            addDevice()
+            check()
         }
     }
 
@@ -79,6 +80,41 @@ class AddDeviceActivity : AppCompatActivity() {
                 resources.getString(R.string.try_again),
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    private fun check() {
+        if (input_identifier.text.isNotEmpty()) {
+            if (input_identifier.text.length == 24) {
+                try {
+                    addDevice()
+                    Toast.makeText(
+                        this,
+                        resources.getString(R.string.item_saved),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this,
+                        resources.getString(R.string.try_again),
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            } else {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.bad_id),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+        }
+        if (input_identifier.text.isEmpty() ) {
+            Toast.makeText(this, resources.getString(R.string.complete_all), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

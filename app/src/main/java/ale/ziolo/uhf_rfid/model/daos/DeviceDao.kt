@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface DeviceDAO {
+interface DeviceDao {
     @Query("SELECT * FROM device")
     fun getAll(): LiveData<List<DeviceEntity>>
 

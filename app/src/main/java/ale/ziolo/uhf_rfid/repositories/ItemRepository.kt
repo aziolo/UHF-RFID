@@ -15,7 +15,7 @@ class ItemRepository(private val application: Application) {
 
     init {
         val db: AppDataBase = AppDataBase.invoke(application.applicationContext)
-        itemDao = db.ItemDAO()
+        itemDao = db.ItemDao()
         con = application.baseContext
     }
 

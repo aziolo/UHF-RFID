@@ -75,7 +75,7 @@
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_use_qr"
-        app:srcCompat="@drawable/ic_vpn_key_white_24dp" />
+        app:srcCompat="@drawable/ic_price_tag" />
 
     <EditText
         android:id="@+id/input_identifier"

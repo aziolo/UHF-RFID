@@ -1,7 +1,7 @@
 package ale.ziolo.uhf_rfid.repositories
 
 import ale.ziolo.uhf_rfid.model.AppDataBase
-import ale.ziolo.uhf_rfid.model.daos.ProfileDAO
+import ale.ziolo.uhf_rfid.model.daos.ProfileDao
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import android.app.Application
 import android.content.Context
@@ -9,12 +9,12 @@ import android.os.AsyncTask
 import android.util.Log
 
 class ProfileLocalRepository(private val application: Application) {
-    private var profileDao: ProfileDAO
+    private var profileDao: ProfileDao
     private var con: Context
 
     init {
         val db: AppDataBase = AppDataBase.invoke(application.applicationContext)
-        profileDao = db.ProfileDAO()
+        profileDao = db.ProfileDao()
         con = application.baseContext
     }
 
@@ -53,7 +53,7 @@ class ProfileLocalRepository(private val application: Application) {
         ).execute().get()
     }
 
-    private class GetProfileAsyncTask(val dao: ProfileDAO, val email: String) :
+    private class GetProfileAsyncTask(val dao: ProfileDao, val email: String) :
         AsyncTask<String, Unit, ProfileEntity>() {
         override fun doInBackground(vararg params: String?): ProfileEntity {
             return dao.getProfile(email)
@@ -61,7 +61,7 @@ class ProfileLocalRepository(private val application: Application) {
 
     }
 
-    private class GetOneProfileAsyncTask(val dao: ProfileDAO) :
+    private class GetOneProfileAsyncTask(val dao: ProfileDao) :
         AsyncTask<Unit, Unit, ProfileEntity>() {
         override fun doInBackground(vararg params: Unit?): ProfileEntity {
             return try {
@@ -74,7 +74,7 @@ class ProfileLocalRepository(private val application: Application) {
 
     }
 
-    private class InsertNewProfileAsyncTask(val dao: ProfileDAO, val con: Context) :
+    private class InsertNewProfileAsyncTask(val dao: ProfileDao, val con: Context) :
         AsyncTask<ProfileEntity, Unit, Unit>() {
         override fun doInBackground(vararg params: ProfileEntity) {
             try {
@@ -89,7 +89,7 @@ class ProfileLocalRepository(private val application: Application) {
 
 
     private class UpdateProfileAsyncTask(
-        val dao: ProfileDAO,
+        val dao: ProfileDao,
         val profile: ProfileEntity,
         val con: Context
     ) : AsyncTask<Unit, Unit, Unit>() {

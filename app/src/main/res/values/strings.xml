@@ -50,9 +50,10 @@
     // qr code
     <string name="read_qr">Odczytany QR kod:</string>
     <string name="ok">OK</string>
+    <string name="scanner">Nakieruj kamerę na kod QR</string>
 
     // new item
-    <string name="add_item">Dodaj element do monitiriwania</string>
+    <string name="add_item">Dodaj element do monitorowania</string>
     <string name="item_intro">Możesz to zrobić skanując kod QR lub wpisując ręcznie jego identyfikator z urządzenia</string>
     <string name="item_saved">Zapisano element do monitorowania.</string>
     <string name="item_name">Nazwa</string>

@@ -5,7 +5,6 @@ import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
-import ale.ziolo.uhf_rfid.model.entities.ReadingEntity
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
@@ -18,7 +17,6 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     private val con = application.applicationContext
     private val firebaseRepository =
         FirestoreRepository(application)
-    private var savedReadingList: MutableLiveData<List<ReadingEntity>> = MutableLiveData()
     private var profile: MutableLiveData<List<ProfileEntity>> = MutableLiveData()
     private var device: MutableLiveData<List<DeviceEntity>> = MutableLiveData()
     private var item: MutableLiveData<List<ItemEntity>> = MutableLiveData()
