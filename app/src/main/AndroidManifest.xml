@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ale.ziolo.uhf_rfid">
+    package="ale.ziolo.uhf_rfid" >
 
     <uses-sdk tools:overrideLibrary="       androidx.camera.camera2, androidx.camera.core,       androidx.camera.view, androidx.camera.lifecycle" />
 
@@ -16,13 +16,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".view.AddItemActivity"></activity>
+        android:theme="@style/AppTheme" >
+        <activity android:name=".view.AddItemActivity" />
         <activity android:name=".view.ScannerQRActivity" />
         <activity android:name=".view.AddDeviceActivity" />
         <activity android:name=".view.SynchronizeActivity" />
         <activity android:name=".view.ManageAccountActivity" />
-        <activity android:name=".view.LoginActivity">
+        <activity android:name=".view.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

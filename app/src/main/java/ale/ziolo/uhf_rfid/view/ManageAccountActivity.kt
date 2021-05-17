@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_manage_account.*
-import java.util.*
 import javax.inject.Inject
 
 class ManageAccountActivity : AppCompatActivity() {
@@ -130,14 +129,10 @@ class ManageAccountActivity : AppCompatActivity() {
         name: String,
         email: String
     ) {
-        val uuid: UUID = UUID.randomUUID()
-        val id1: Long = uuid.mostSignificantBits
-        val id2: Long = uuid.leastSignificantBits
         val profile = ProfileEntity(
-            id1,
-            id2,
             name,
-            email
+            email,
+            ""
         )
         profileViewModel.insertProfile(profile)
         firestoreViewModel.saveProfile(profile)
@@ -148,10 +143,9 @@ class ManageAccountActivity : AppCompatActivity() {
     ) {
         val old = profileViewModel.getOneProfile()
         val updated = ProfileEntity(
-            old.id1,
-            old.id2,
             name,
-            old.email
+            old.email,
+            old.device_id
         )
         profileViewModel.updateProfile(updated)
     }

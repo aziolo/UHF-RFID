@@ -1,7 +1,6 @@
 package ale.ziolo.uhf_rfid.view
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
 import ale.ziolo.uhf_rfid.viewModels.ItemViewModel
@@ -14,7 +13,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_add_item.*
-import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
 class AddItemActivity : AppCompatActivity() {
@@ -50,13 +48,19 @@ class AddItemActivity : AppCompatActivity() {
 
         button_use_qr_item.setOnClickListener {
             //new activity qr
-            val intent2 = Intent(this, ScannerQRActivity::class.java)
-            intent2.putExtra("state","item")
-            startActivity(intent2)
+            val intent = Intent(this, ScannerQRActivity::class.java)
+            intent.putExtra("state","item")
+            startActivity(intent)
         }
 
         button_add_item.setOnClickListener {
             check()
+        }
+
+        button_skip_item.setOnClickListener {
+            //new activity qr
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

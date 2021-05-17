@@ -1,13 +1,11 @@
 package ale.ziolo.uhf_rfid.repositories
 
-import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import android.app.Application
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Transaction
@@ -21,9 +19,7 @@ class FirestoreRepository(val application: Application) {
     private val profileDocumentReference = firestoreDB.collection("users")
         .document(user.uid)
 
-    private val deviceCollectionReference = firestoreDB.collection("users")
-        .document(user.uid)
-        .collection("devices")
+
     private val itemCollectionReference = firestoreDB.collection("users")
         .document(user.uid)
         .collection("items")
@@ -48,13 +44,7 @@ class FirestoreRepository(val application: Application) {
             transaction.set(profileDocumentReference, profile)
         }
     }
-    fun saveDeviceToFirebase(
-        device: DeviceEntity
-    ): Task<Transaction> {
-        return firestoreDB.runTransaction { transaction ->
-            transaction.set(deviceCollectionReference.document(device.tag), device)
-            }
-        }
+
 
     fun saveItemToFirebase(
         item: ItemEntity

@@ -59,4 +59,10 @@
     <string name="item_name">Nazwa</string>
     <string name="bad_id">Zły kod identyfikujący!</string>
 
+    // main titles
+    <string name="skip">Pomiń</string>
+    <string name="title_items">Statusy</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_rules">Reguły</string>
+
 </resources>

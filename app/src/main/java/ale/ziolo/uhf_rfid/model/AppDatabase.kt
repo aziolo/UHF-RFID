@@ -1,8 +1,6 @@
 package ale.ziolo.uhf_rfid.model
-import ale.ziolo.uhf_rfid.model.daos.DeviceDao
 import ale.ziolo.uhf_rfid.model.daos.ItemDao
 import ale.ziolo.uhf_rfid.model.daos.ProfileDao
-import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import android.content.Context
@@ -11,12 +9,11 @@ import androidx.room.*
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [ProfileEntity::class, DeviceEntity::class, ItemEntity::class],
+    entities = [ProfileEntity::class, ItemEntity::class],
     version = 1
 )
 abstract class AppDataBase : RoomDatabase(){
     abstract fun ProfileDao(): ProfileDao
-    abstract fun DeviceDao(): DeviceDao
     abstract fun ItemDao(): ItemDao
 
     companion object {

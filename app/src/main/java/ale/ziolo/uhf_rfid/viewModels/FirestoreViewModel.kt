@@ -2,7 +2,6 @@ package ale.ziolo.uhf_rfid.viewModels
 
 import ale.ziolo.uhf_rfid.repositories.FirestoreRepository
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import android.app.Application
@@ -18,7 +17,6 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     private val firebaseRepository =
         FirestoreRepository(application)
     private var profile: MutableLiveData<List<ProfileEntity>> = MutableLiveData()
-    private var device: MutableLiveData<List<DeviceEntity>> = MutableLiveData()
     private var item: MutableLiveData<List<ItemEntity>> = MutableLiveData()
 
     fun logOut() {
@@ -37,6 +35,18 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
         }.addOnFailureListener { e ->
             Toast.makeText(con, con.resources.getString(R.string.synchro_bad), Toast.LENGTH_SHORT)
                 .show()
+            Log.e(TAG, "Error while updating", e)
+        }
+    }
+
+    fun addDevice(
+        profile: ProfileEntity
+    ) {
+        firebaseRepository.updateFirestore(
+            profile
+        ).addOnSuccessListener {
+            Log.i(TAG, "Update completed.")
+        }.addOnFailureListener { e ->
             Log.e(TAG, "Error while updating", e)
         }
     }
@@ -66,14 +76,6 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     fun saveProfile(profileEntity: ProfileEntity) {
         firebaseRepository.saveProfileToFirebase(profileEntity)
             .addOnSuccessListener { Log.i(TAG, "Successfully add Profile to Database Firestore!") }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error adding document", e)
-            }
-    }
-
-    fun saveDevice(deviceEntity: DeviceEntity) {
-        firebaseRepository.saveDeviceToFirebase(deviceEntity)
-            .addOnSuccessListener { Log.i(TAG, "Successfully add Device to Database Firestore!") }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error adding document", e)
             }

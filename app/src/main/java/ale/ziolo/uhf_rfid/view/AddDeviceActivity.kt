@@ -1,9 +1,9 @@
 package ale.ziolo.uhf_rfid.view
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.model.entities.DeviceEntity
-import ale.ziolo.uhf_rfid.viewModels.DeviceViewModel
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.viewModels.ProfileViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -18,14 +18,15 @@ import javax.inject.Inject
 
 class AddDeviceActivity : AppCompatActivity() {
 
-    private lateinit var tag: String
+    private lateinit var deviceId: String
     private lateinit var state_tag: String
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
-    private val deviceViewModel: DeviceViewModel by lazy {
+
+    private val profileViewModel: ProfileViewModel by lazy {
         ViewModelProviders.of(this).get(
-            DeviceViewModel::class.java
+            ProfileViewModel::class.java
         )
     }
     private val firestoreViewModel: FirestoreViewModel by lazy {
@@ -39,13 +40,13 @@ class AddDeviceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_device)
 
         val intent = intent
-        tag = intent.getStringExtra("tag").toString()
+        deviceId = intent.getStringExtra("tag").toString()
         state_tag = intent.getStringExtra("state_tag").toString()
 
 
-        if (state_tag == "add_device" && tag.isNotEmpty()){
+        if (state_tag == "add_device" && deviceId.isNotEmpty()){
             input_identifier.text = Editable.Factory.getInstance()
-                .newEditable(tag)
+                .newEditable(deviceId)
         }
 
         button_use_qr.setOnClickListener {
@@ -58,15 +59,24 @@ class AddDeviceActivity : AppCompatActivity() {
         button_add_device.setOnClickListener {
             check()
         }
+
+        button_skip_device.setOnClickListener {
+            //new activity qr
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun addDevice() {
         try {
-            val device = DeviceEntity(
-                tag
+            val old = profileViewModel.getOneProfile()
+            val updated = ProfileEntity(
+                old.name,
+                old.email,
+                deviceId
             )
-            deviceViewModel.insert(device)
-            firestoreViewModel.saveDevice(device)
+            profileViewModel.updateProfile(updated)
+            firestoreViewModel.addDevice(updated)
             Toast.makeText(
                 this,
                 resources.getString(R.string.device_saved),
@@ -85,7 +95,7 @@ class AddDeviceActivity : AppCompatActivity() {
 
     private fun check() {
         if (input_identifier.text.isNotEmpty()) {
-            if (input_identifier.text.length == 24) {
+            if (input_identifier.text.length == 20) {
                 try {
                     addDevice()
                     Toast.makeText(
@@ -117,5 +127,6 @@ class AddDeviceActivity : AppCompatActivity() {
                 .show()
         }
     }
+
 
 }

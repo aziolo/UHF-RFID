@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_rules">
+
+    <fragment
+        android:id="@+id/navigation_rules"
+        android:name="ale.ziolo.uhf_rfid.view.ui.home.RulesFragment"
+        android:label="@string/title_items"
+        tools:layout="@layout/fragment_rules" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="ale.ziolo.uhf_rfid.view.ui.profile.ProfileFragment"
+        android:label="@string/title_rules"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_items"
+        android:name="ale.ziolo.uhf_rfid.view.ui.items.ItemsFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_items" />
+</navigation>
