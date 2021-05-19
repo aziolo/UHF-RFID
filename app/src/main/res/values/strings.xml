@@ -65,4 +65,21 @@
     <string name="title_profile">Profil</string>
     <string name="title_rules">Reguły</string>
 
+    //item fragment
+    <string name="title_text_items">Monitorowane \nelementy</string>
+    <string name="title_tag">Tag:</string>
+    <string name="title_status">Status:</string>
+    <string name="in">IN</string>
+    <string name="out">OUT</string>
+    <string name="change_status">Zmień status</string>
+
+    //rule fragment
+    <string name="title_text_rule">Zapisane \nreguły</string>
+
+    //profile fragment
+    <string name="title_text_profile">Mój \nprofil</string>
+    <string name="title_text_profile_my_devices">Połączone urządzenia monitorujące</string>
+    <string name="change">Zmień</string>
+    <string name="no_device">brak</string>
+
 </resources>

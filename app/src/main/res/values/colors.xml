@@ -21,4 +21,13 @@
     <color name="backgroud_color">#044E06</color>
     <color name="tintColor">#667766</color>
     <color name="colorBar">#2BB8CE</color>
+
+    <color name="bluuu">#8ECAE6</color>
+    <color name="bluudark">#264653</color>
+    <color name="jasny">#F1FAEE</color>
+    <color name="ziel1">#2A9D8F</color>
+    <color name="zul1">#E9C46A</color>
+    <color name="pom">#F4A261</color>
+    <color name="czer">#E76F51</color>
+
 </resources>

@@ -9,18 +9,18 @@ import android.os.AsyncTask
 import android.util.Log
 
 class ProfileLocalRepository(private val application: Application) {
-    private var profileDao: ProfileDao
+    private var dao: ProfileDao
     private var con: Context
 
     init {
         val db: AppDataBase = AppDataBase.invoke(application.applicationContext)
-        profileDao = db.ProfileDao()
+        dao = db.ProfileDao()
         con = application.baseContext
     }
 
 
     fun getProfile(email: String): ProfileEntity {
-        val dao = profileDao
+        val dao = dao
         return GetProfileAsyncTask(
             dao,
             email
@@ -29,13 +29,13 @@ class ProfileLocalRepository(private val application: Application) {
 
     fun insertProfile(profile: ProfileEntity) {
         InsertNewProfileAsyncTask(
-            profileDao,
+            dao,
             con
         ).execute(profile)
     }
 
     fun updateProfile(profile: ProfileEntity) {
-        val dao = profileDao
+        val dao = dao
         UpdateProfileAsyncTask(
             dao,
             profile,
@@ -47,7 +47,7 @@ class ProfileLocalRepository(private val application: Application) {
     }
 
     fun getOneProfile(): ProfileEntity {
-        val dao = profileDao
+        val dao = dao
         return GetOneProfileAsyncTask(
             dao
         ).execute().get()
@@ -105,5 +105,7 @@ class ProfileLocalRepository(private val application: Application) {
             }
         }
     }
+
+
 
 }

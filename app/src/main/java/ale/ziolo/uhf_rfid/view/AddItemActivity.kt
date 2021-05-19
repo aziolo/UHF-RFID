@@ -68,7 +68,8 @@ class AddItemActivity : AppCompatActivity() {
         try {
             val item = ItemEntity(
                 tag,
-                name
+                name,
+                "IN"
             )
             itemViewModel.insert(item)
             firestoreViewModel.saveItem(item)

@@ -1,6 +1,8 @@
 package ale.ziolo.uhf_rfid.view.ui.home
 
 import ale.ziolo.uhf_rfid.databinding.FragmentRulesBinding
+import ale.ziolo.uhf_rfid.view.AddItemActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,17 +24,23 @@ private var _binding: FragmentRulesBinding? = null
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     rulesViewModel =
             ViewModelProvider(this).get(RulesViewModel::class.java)
 
     _binding = FragmentRulesBinding.inflate(inflater, container, false)
     val root: View = binding.root
 
-    val textView: TextView = binding.textHome
-    rulesViewModel.text.observe(viewLifecycleOwner, Observer {
-      textView.text = it
-    })
+//    val textView: TextView = binding.textHome
+//    rulesViewModel.text.observe(viewLifecycleOwner, Observer {
+//      textView.text = it
+//    })
+
+      binding.buttonAddRule.setOnClickListener {
+          val intent = Intent(context, AddItemActivity::class.java)
+          startActivity(intent)
+      }
+
     return root
   }
 

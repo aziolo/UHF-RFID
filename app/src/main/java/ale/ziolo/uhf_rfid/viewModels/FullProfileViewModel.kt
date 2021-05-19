@@ -5,7 +5,7 @@ import ale.ziolo.uhf_rfid.repositories.ProfileLocalRepository
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+class FullProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository = ProfileLocalRepository(application)
 

@@ -3,7 +3,7 @@ package ale.ziolo.uhf_rfid.view
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
-import ale.ziolo.uhf_rfid.viewModels.ProfileViewModel
+import ale.ziolo.uhf_rfid.viewModels.FullProfileViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -24,9 +24,9 @@ class AddDeviceActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
 
-    private val profileViewModel: ProfileViewModel by lazy {
+    private val profileViewModel: FullProfileViewModel by lazy {
         ViewModelProviders.of(this).get(
-            ProfileViewModel::class.java
+            FullProfileViewModel::class.java
         )
     }
     private val firestoreViewModel: FirestoreViewModel by lazy {
@@ -56,7 +56,7 @@ class AddDeviceActivity : AppCompatActivity() {
             startActivity(intent2)
         }
 
-        button_add_device.setOnClickListener {
+        button_add_item.setOnClickListener {
             check()
         }
 

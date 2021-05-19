@@ -1,42 +1,25 @@
 package ale.ziolo.uhf_rfid.view
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.view.ui.home.RulesFragment
-import ale.ziolo.uhf_rfid.view.ui.profile.ProfileFragment
-import ale.ziolo.uhf_rfid.view.ui.items.ItemsFragment
+import ale.ziolo.uhf_rfid.databinding.ActivityMainBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val profileFragment = ProfileFragment()
-    private val rulesFragment= RulesFragment()
-    private val itemsFragment= ItemsFragment()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setCurrentFragment(rulesFragment)
-
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.navigation_rules ->setCurrentFragment(rulesFragment)
-                R.id.navigation_items->setCurrentFragment(itemsFragment)
-                R.id.navigation_profile->setCurrentFragment(profileFragment)
-
-            }
-            true
-        }
-
-
+        val navView: BottomNavigationView = binding.bottomNavigationView
+        val navController = findNavController(R.id.nav_host_fragment)
+        navView.setupWithNavController(navController)
     }
-
-    private fun setCurrentFragment(fragment: Fragment)=
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
-            commit()
-        }
 }

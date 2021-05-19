@@ -2,11 +2,10 @@ package ale.ziolo.uhf_rfid.model.daos
 
 
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
 
 @Dao
 interface ItemDao {
@@ -21,4 +20,8 @@ interface ItemDao {
 
     @Delete
     fun delete(item: ItemEntity)
+
+    @Update
+    fun updateItem(vararg itemUpd: ItemEntity)
+
 }

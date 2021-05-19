@@ -3,6 +3,7 @@ package ale.ziolo.uhf_rfid.model.daos
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.util.concurrent.Flow
 
 @Dao
 interface ProfileDao {
@@ -25,4 +26,7 @@ interface ProfileDao {
     fun updateProfile(vararg profileUpd: ProfileEntity)
 
     //vararg we can put more than one value
+
+    @Query("SELECT * FROM profile")
+    fun getProfiles(): LiveData<List<ProfileEntity>>
 }

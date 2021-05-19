@@ -1,8 +1,7 @@
 package ale.ziolo.uhf_rfid.view
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
-import ale.ziolo.uhf_rfid.viewModels.ProfileViewModel
+import ale.ziolo.uhf_rfid.databinding.ActivityLoginBinding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,8 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -28,22 +25,8 @@ class LoginActivity : AppCompatActivity() {
     private var mNAME: String = ""
     private var mPASSWORD: String = ""
 
-    private lateinit var user: FirebaseUser
-
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
-    private val profileViewModel: ProfileViewModel by lazy {
-        ViewModelProviders.of(this).get(
-            ProfileViewModel::class.java
-        )
-    }
-    private val firestoreViewModel: FirestoreViewModel by lazy {
-        ViewModelProviders.of(this).get(
-            FirestoreViewModel::class.java
-        )
-    }
-
 
     // Configure Google Sign In
     private lateinit var auth: FirebaseAuth

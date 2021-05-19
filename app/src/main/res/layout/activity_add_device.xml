@@ -93,12 +93,13 @@
         app:layout_constraintTop_toBottomOf="@+id/button_use_qr" />
 
     <ImageButton
-        android:id="@+id/button_add_device"
+        android:id="@+id/button_add_item"
         style="@style/ButtonStyleSignIn"
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:foreground="@color/transpa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_identifier"
         app:srcCompat="@drawable/ic_baseline_arrow_right_alt_24" />
@@ -114,7 +115,7 @@
         android:textAllCaps="false"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_device" />
+        app:layout_constraintTop_toBottomOf="@+id/button_add_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

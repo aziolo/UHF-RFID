@@ -1,13 +1,16 @@
 package ale.ziolo.uhf_rfid.view.ui.profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.repositories.ProfileLocalRepository
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private var repository = ProfileLocalRepository(application)
+
+    fun getProfile(): ProfileEntity {
+        return repository.getOneProfile()
     }
-    val text: LiveData<String> = _text
+
 }

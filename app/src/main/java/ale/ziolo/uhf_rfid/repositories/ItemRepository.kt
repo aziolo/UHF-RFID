@@ -2,40 +2,72 @@ package ale.ziolo.uhf_rfid.repositories
 
 import ale.ziolo.uhf_rfid.model.AppDataBase
 import ale.ziolo.uhf_rfid.model.daos.ItemDao
+import ale.ziolo.uhf_rfid.model.daos.ProfileDao
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 
 import android.app.Application
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
-class ItemRepository(private val application: Application) {
-    private var itemDao: ItemDao
+class ItemRepository(application: Application) {
+    private var dao: ItemDao
     private var con: Context
+    private var allItems: LiveData<List<ItemEntity>>
 
     init {
         val db: AppDataBase = AppDataBase.invoke(application.applicationContext)
-        itemDao = db.ItemDao()
+        dao = db.ItemDao()
         con = application.baseContext
+        allItems = dao.getAll()
     }
+    fun getAllItems(): LiveData<List<ItemEntity>>{
+        return allItems
+    }
+
 
     fun insert(item: ItemEntity) {
         InsertAsyncTask(
-            itemDao,
-            con
+            dao
         ).execute(item)
     }
-
-    private class InsertAsyncTask(val dao: ItemDao, val con: Context) :
+    private class InsertAsyncTask(val dao: ItemDao) :
         AsyncTask<ItemEntity, Unit, Unit>() {
         override fun doInBackground(vararg params: ItemEntity) {
             try {
                 dao.insertAll(params[0])
-                Log.i("INSERT", "operation insert device successful.")
+                Log.i("INSERT", "operation insert item successful.")
             } catch (e: RuntimeException) {
-                Log.e("INSERT", "operation insert new device failed")
+                Log.e("INSERT", "operation insert new item failed")
             }
         }
 
+    }
+
+    fun update(item: ItemEntity){
+        UpdateItemAsyncTask(
+            dao,
+            item
+        ).execute()
+    }
+
+    private class UpdateItemAsyncTask(
+        val dao: ItemDao,
+        val item: ItemEntity
+    ) : AsyncTask<Unit, Unit, Unit>() {
+        var state = false
+        override fun doInBackground(vararg params: Unit?) {
+            try {
+                state = true
+                dao.updateItem(item)
+                Log.i("UPDATE", "operation update item successful")
+            } catch (e: Exception) {
+                state = false
+                Log.e("UPDATE", "operation update item failed")
+            }
+        }
     }
 }
