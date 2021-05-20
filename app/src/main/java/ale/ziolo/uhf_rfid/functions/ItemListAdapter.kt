@@ -33,7 +33,7 @@ class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter
     ): ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context)
-        val binding = RecyclerViewElementItemsBinding.inflate(inflater)
+        val binding = RecyclerViewElementItemsBinding.inflate(inflater, parent, false)
 
         return ViewHolder(binding)
     }

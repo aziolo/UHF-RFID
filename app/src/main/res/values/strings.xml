@@ -82,4 +82,15 @@
     <string name="change">Zmień</string>
     <string name="no_device">brak</string>
 
+    // cloud messaging
+    <string name="notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="notification_channel_name" translatable="true">RFID</string>
+    <string name="fcm_message">FCM Message</string>
+    <string name="message_subscribe_failed">Failed to subscribe to topic</string>
+    <string name="message_subscribed">Subscribed to topic</string>
+    <string name="notification_channel_description">Breakfast reminder</string>
+    <string name="snooze">Snooze</string>
+    <string name="notification_title">Egg Timer</string>
+    <string name="notification_text">Your egg is ready!!</string>
+
 </resources>
