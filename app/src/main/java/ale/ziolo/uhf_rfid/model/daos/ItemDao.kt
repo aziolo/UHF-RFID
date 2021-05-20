@@ -2,9 +2,7 @@ package ale.ziolo.uhf_rfid.model.daos
 
 
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
-import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 @Dao

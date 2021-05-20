@@ -1,7 +1,7 @@
 package ale.ziolo.uhf_rfid.view.ui.profile
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.databinding.FragmentProfileBinding
-import ale.ziolo.uhf_rfid.view.AddDeviceActivity
+import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
 import ale.ziolo.uhf_rfid.view.ManageAccountActivity
 import android.content.Intent
 import android.os.Bundle

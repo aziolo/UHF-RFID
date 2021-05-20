@@ -1,20 +1,23 @@
 package ale.ziolo.uhf_rfid.model
 import ale.ziolo.uhf_rfid.model.daos.ItemDao
 import ale.ziolo.uhf_rfid.model.daos.ProfileDao
+import ale.ziolo.uhf_rfid.model.daos.RuleDao
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import android.content.Context
 import androidx.room.Database
 import androidx.room.*
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [ProfileEntity::class, ItemEntity::class],
+    entities = [ProfileEntity::class, ItemEntity::class, RuleEntity::class],
     version = 1
 )
 abstract class AppDataBase : RoomDatabase(){
     abstract fun ProfileDao(): ProfileDao
     abstract fun ItemDao(): ItemDao
+    abstract fun RuleDao(): RuleDao
 
     companion object {
 

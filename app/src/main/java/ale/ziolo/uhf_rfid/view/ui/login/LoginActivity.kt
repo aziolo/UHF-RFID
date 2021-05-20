@@ -1,7 +1,11 @@
-package ale.ziolo.uhf_rfid.view
+package ale.ziolo.uhf_rfid.view.ui.login
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.databinding.ActivityLoginBinding
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.view.ui.synchronize.SynchronizeActivity
+import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
+import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
+import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -27,6 +32,16 @@ class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
+    private val loginViewModel: LoginViewModel by lazy {
+        ViewModelProviders.of(this).get(
+            LoginViewModel::class.java
+        )
+    }
+    private val firestoreViewModel: FirestoreViewModel by lazy {
+        ViewModelProviders.of(this).get(
+            FirestoreViewModel::class.java
+        )
+    }
 
     // Configure Google Sign In
     private lateinit var auth: FirebaseAuth
@@ -107,7 +122,6 @@ class LoginActivity : AppCompatActivity() {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!)
-                Log.e("TAG", "kdfj;kfhkhdkjshd;fhj")
 
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
@@ -128,17 +142,12 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     if (state == 1) {
-                        //new user with google account
-                        val intent = Intent(this, ManageAccountActivity::class.java)
-                        intent.putExtra("email", account.email.toString())
-                        intent.putExtra("name", account.displayName.toString())
-                        intent.putExtra("state", "log")
-                        startActivity(intent)
-
+                        val email = account.email.toString()
+                        val name = account.displayName.toString()
+                        createAccount(name, email)
                     }
                     if (state == 2) {
                         val intent = Intent(this, SynchronizeActivity::class.java)
-                        intent.putExtra("mode", "download")
                         intent.putExtra("email", account.email.toString())
                         intent.putExtra("name", account.displayName.toString())
                         startActivity(intent)
@@ -158,12 +167,9 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     //Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "createUserWithEmail:success")
-                    val intent = Intent(this, ManageAccountActivity::class.java)
-                    intent.putExtra("name", mNAME)
-                    intent.putExtra("email", mEMAIL)
-                    intent.putExtra("password", mPASSWORD)
-                    intent.putExtra("state", "create_email")
-                    startActivity(intent)
+                    val name = mNAME
+                    val email = mEMAIL
+                    createAccount(name, email)
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -184,7 +190,6 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithEmail:success")
                     val intent = Intent(this, SynchronizeActivity::class.java)
-                    intent.putExtra("mode", "download")
                     intent.putExtra("email", mEMAIL)
                     intent.putExtra("name", mNAME)
                     startActivity(intent)
@@ -260,6 +265,44 @@ class LoginActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+
+    private fun createProfileEntity(
+        name: String,
+        email: String
+    ) {
+        val profile = ProfileEntity(
+            name,
+            email,
+            "",
+            ""
+        )
+        loginViewModel.insertProfile(profile)
+        firestoreViewModel.saveProfile(profile)
+    }
+
+    private fun createAccount(name: String, email: String){
+        try {
+            createProfileEntity(
+                name,
+                email
+            )
+            Toast.makeText(
+                this,
+                resources.getString(R.string.profile_saved),
+                Toast.LENGTH_SHORT
+            ).show()
+            val intent = Intent(this, AddDeviceActivity::class.java)
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                resources.getString(R.string.try_again),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
     }
 
     companion object {

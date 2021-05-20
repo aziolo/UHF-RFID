@@ -1,13 +1,13 @@
 package ale.ziolo.uhf_rfid.viewModels
 
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
-import ale.ziolo.uhf_rfid.repositories.ProfileLocalRepository
+import ale.ziolo.uhf_rfid.repositories.ProfileRepository
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 
 class FullProfileViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var repository = ProfileLocalRepository(application)
+    private var repository = ProfileRepository(application)
 
     fun getProfile(email: String): ProfileEntity {
         return repository.getProfile(email)

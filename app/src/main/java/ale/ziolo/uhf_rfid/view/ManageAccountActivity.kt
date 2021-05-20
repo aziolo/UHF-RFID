@@ -2,6 +2,7 @@ package ale.ziolo.uhf_rfid.view
 
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
 import ale.ziolo.uhf_rfid.viewModels.FullProfileViewModel
 import android.app.Activity
@@ -132,6 +133,7 @@ class ManageAccountActivity : AppCompatActivity() {
         val profile = ProfileEntity(
             name,
             email,
+            "",
             ""
         )
         profileViewModel.insertProfile(profile)
@@ -145,7 +147,8 @@ class ManageAccountActivity : AppCompatActivity() {
         val updated = ProfileEntity(
             name,
             old.email,
-            old.device_id
+            old.device_id,
+            old.token
         )
         profileViewModel.updateProfile(updated)
     }

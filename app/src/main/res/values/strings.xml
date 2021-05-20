@@ -6,7 +6,7 @@
     //create profile
     <string name="sign_up">Zarejestruj się</string>
     <string name="login">Zaloguj się</string>
-    <string name="synchronize">Czy chcesz, aby połączyć profil z zachowanymi wcześniej danymi?</string>
+    <string name="synchronize">Czy chcesz, aby pobrać zachowane dane?</string>
     <string name="password_length">Hasło za krótkie, min. 6 znaków!</string>
     <string name="synchro_good">Kopia zapasowa została utworzona.</string>
     <string name="synchro_bad">Synchronizacja nie powiodła się. Spróbuj ponownie pózniej.</string>
@@ -88,9 +88,7 @@
     <string name="fcm_message">FCM Message</string>
     <string name="message_subscribe_failed">Failed to subscribe to topic</string>
     <string name="message_subscribed">Subscribed to topic</string>
-    <string name="notification_channel_description">Breakfast reminder</string>
-    <string name="snooze">Snooze</string>
-    <string name="notification_title">Egg Timer</string>
-    <string name="notification_text">Your egg is ready!!</string>
+    <string name="notification_channel_description">Item reminder</string>
+
 
 </resources>

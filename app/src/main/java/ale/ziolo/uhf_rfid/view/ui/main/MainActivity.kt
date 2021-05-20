@@ -1,7 +1,9 @@
-package ale.ziolo.uhf_rfid.view
+package ale.ziolo.uhf_rfid.view.ui.main
 
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.databinding.ActivityMainBinding
+import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
@@ -10,16 +12,33 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val TOPIC = "reminder"
+    private val topic = "reminder"
+    private lateinit var token: String
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
+
+    private val mainViewModel: MainViewModel by lazy {
+        ViewModelProviders.of(this).get(
+            MainViewModel::class.java
+        )
+    }
+    private val firestoreViewModel: FirestoreViewModel by lazy {
+        ViewModelProviders.of(this).get(
+            FirestoreViewModel::class.java
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -36,7 +55,12 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.notification_channel_name)
         )
         subscribeTopic()
+    }
+
+    override fun onStart() {
+        super.onStart()
         getToken()
+        addToken()
     }
 
     private fun createChannel(channelId: String, channelName: String) {
@@ -63,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeTopic() {
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
             .addOnCompleteListener { task ->
                 var message = getString(R.string.message_subscribed)
                 if (!task.isSuccessful) {
@@ -80,10 +104,25 @@ class MainActivity : AppCompatActivity() {
                 return@OnCompleteListener
             }
             // Get new FCM registration token
-            val token = task.result
+            token = task.result
             Log.e("TAG", token)
             Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
         })
+    }
+    private fun addToken() {
+        try {
+            val old = mainViewModel.getProfile()
+            val updated = ProfileEntity(
+                old.name,
+                old.email,
+                old.device_id,
+                token
+            )
+            mainViewModel.updateProfile(updated)
+            firestoreViewModel.updateDevice(updated)
+
+        } catch (e: Exception) {
+        }
     }
 
 }

@@ -3,16 +3,11 @@ package ale.ziolo.uhf_rfid.functions
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.databinding.RecyclerViewElementItemsBinding
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
-import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
-import ale.ziolo.uhf_rfid.view.AddItemActivity
 import ale.ziolo.uhf_rfid.view.ui.items.ItemsFragment
 import ale.ziolo.uhf_rfid.view.ui.items.ItemsViewModel
-import ale.ziolo.uhf_rfid.viewModels.ItemViewModel
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 

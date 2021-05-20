@@ -1,7 +1,7 @@
 package ale.ziolo.uhf_rfid.cloudMessaging
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.view.MainActivity
+import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 /*
  * Copyright (C) 2019 Google Inc.
  *
@@ -24,7 +24,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import android.graphics.BitmapFactory
 
 // Notification ID.
 private val NOTIFICATION_ID = 0
@@ -46,7 +45,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         applicationContext.getString(R.string.notification_channel_id)
     )
         .setSmallIcon(R.drawable.round_shape)
-        .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
         .setContentIntent(contentPendingIntent)
         .setPriority(NotificationCompat.PRIORITY_HIGH)

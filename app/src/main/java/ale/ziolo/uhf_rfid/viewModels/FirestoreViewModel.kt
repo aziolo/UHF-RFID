@@ -1,15 +1,16 @@
 package ale.ziolo.uhf_rfid.viewModels
 
 import ale.ziolo.uhf_rfid.repositories.FirestoreRepository
-import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.QuerySnapshot
 
 class FirestoreViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -17,29 +18,14 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     private val firebaseRepository =
         FirestoreRepository(application)
     private var profile: MutableLiveData<List<ProfileEntity>> = MutableLiveData()
-    private var item: MutableLiveData<List<ItemEntity>> = MutableLiveData()
+    private var savedItemsList: MutableLiveData<List<ItemEntity>> = MutableLiveData()
+    private var savedRulesList: MutableLiveData<List<RuleEntity>> = MutableLiveData()
 
     fun logOut() {
         firebaseRepository.logOut()
     }
 
-    fun updateFirestore(
-        profile: ProfileEntity
-    ) {
-        firebaseRepository.updateFirestore(
-            profile
-        ).addOnSuccessListener {
-            Log.i(TAG, "Update completed.")
-            Toast.makeText(con, con.resources.getString(R.string.synchro_good), Toast.LENGTH_SHORT)
-                .show()
-        }.addOnFailureListener { e ->
-            Toast.makeText(con, con.resources.getString(R.string.synchro_bad), Toast.LENGTH_SHORT)
-                .show()
-            Log.e(TAG, "Error while updating", e)
-        }
-    }
-
-    fun addDevice(
+    fun updateDevice(
         profile: ProfileEntity
     ) {
         firebaseRepository.updateFirestore(
@@ -52,7 +38,6 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     // getting the old data - reinstalling app
-
     fun getProfile(): LiveData<List<ProfileEntity>> {
         firebaseRepository.getProfileFromFirestore().addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -71,6 +56,45 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
             profile.value = temp
         }
         return profile
+    }
+    // getting the old data - reinstalling app
+    fun getAllItems(): LiveData<List<ItemEntity>> {
+        firebaseRepository.getAllItemsFromFirestore()
+            .addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    savedItemsList.value = null
+                    return@EventListener
+                }
+
+                val temporaryItemsList: MutableList<ItemEntity> = mutableListOf()
+                for (doc in value!!) {
+                    val item = doc.toObject(ItemEntity::class.java)
+                    temporaryItemsList.add(item)
+                }
+                savedItemsList.value = temporaryItemsList
+            })
+
+        return savedItemsList
+    }
+
+    fun getAllRules(): LiveData<List<RuleEntity>> {
+        firebaseRepository.getAllRulesFromFirestore()
+            .addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    savedRulesList.value = null
+                    return@EventListener
+                }
+
+                val temporaryList: MutableList<RuleEntity> = mutableListOf()
+                for (doc in value!!) {
+                    val item = doc.toObject(RuleEntity::class.java)
+                    temporaryList.add(item)
+                }
+                savedRulesList.value = temporaryList
+            })
+        return savedRulesList
     }
 
     fun saveProfile(profileEntity: ProfileEntity) {

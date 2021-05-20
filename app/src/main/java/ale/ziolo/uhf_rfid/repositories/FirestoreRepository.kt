@@ -6,6 +6,7 @@ import android.app.Application
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Transaction
@@ -18,11 +19,14 @@ class FirestoreRepository(val application: Application) {
 
     private val profileDocumentReference = firestoreDB.collection("users")
         .document(user.uid)
-
-
     private val itemCollectionReference = firestoreDB.collection("users")
         .document(user.uid)
         .collection("items")
+    private val ruleCollectionReference = firestoreDB.collection("users")
+        .document(user.uid)
+        .collection("rules")
+
+
 
     fun logOut() {
         auth.signOut()
@@ -30,6 +34,14 @@ class FirestoreRepository(val application: Application) {
 
     fun getProfileFromFirestore(): DocumentReference {
         return profileDocumentReference
+    }
+
+    fun getAllItemsFromFirestore(): CollectionReference {
+        return itemCollectionReference
+    }
+
+    fun getAllRulesFromFirestore(): CollectionReference {
+        return ruleCollectionReference
     }
 
     fun saveProfileToFirebase(profileEntity: ProfileEntity): Task<Void> {
@@ -44,7 +56,6 @@ class FirestoreRepository(val application: Application) {
             transaction.set(profileDocumentReference, profile)
         }
     }
-
 
     fun saveItemToFirebase(
         item: ItemEntity

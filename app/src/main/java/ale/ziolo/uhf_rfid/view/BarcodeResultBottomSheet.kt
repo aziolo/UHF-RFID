@@ -1,6 +1,8 @@
 package ale.ziolo.uhf_rfid.view
 
 import ale.ziolo.uhf_rfid.R
+import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
+import ale.ziolo.uhf_rfid.view.ui.addItem.AddItemActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

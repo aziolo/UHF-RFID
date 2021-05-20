@@ -18,19 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name=".view.AddItemActivity" />
+        <activity android:name=".view.ui.addItem.AddItemActivity" />
         <activity android:name=".view.ScannerQRActivity" />
-        <activity android:name=".view.AddDeviceActivity" />
-        <activity android:name=".view.SynchronizeActivity" />
+        <activity android:name=".view.ui.addDevice.AddDeviceActivity" />
+        <activity android:name=".view.ui.synchronize.SynchronizeActivity" />
         <activity android:name=".view.ManageAccountActivity" />
-        <activity android:name=".view.LoginActivity" >
+        <activity android:name=".view.ui.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.ui.main.MainActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

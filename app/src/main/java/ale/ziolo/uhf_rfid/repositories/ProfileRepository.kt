@@ -8,7 +8,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 
-class ProfileLocalRepository(private val application: Application) {
+class ProfileRepository(private val application: Application) {
     private var dao: ProfileDao
     private var con: Context
 
@@ -39,7 +39,6 @@ class ProfileLocalRepository(private val application: Application) {
         UpdateProfileAsyncTask(
             dao,
             profile,
-            con
         ).execute()
     }
 
@@ -91,7 +90,6 @@ class ProfileLocalRepository(private val application: Application) {
     private class UpdateProfileAsyncTask(
         val dao: ProfileDao,
         val profile: ProfileEntity,
-        val con: Context
     ) : AsyncTask<Unit, Unit, Unit>() {
         var state = false
         override fun doInBackground(vararg params: Unit?) {

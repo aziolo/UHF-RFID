@@ -1,9 +1,10 @@
-package ale.ziolo.uhf_rfid.view
+package ale.ziolo.uhf_rfid.view.ui.addItem
 
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
+import ale.ziolo.uhf_rfid.view.ScannerQRActivity
+import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
-import ale.ziolo.uhf_rfid.viewModels.ItemViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -18,13 +19,13 @@ import javax.inject.Inject
 class AddItemActivity : AppCompatActivity() {
 
     private lateinit var tag: String
-    private lateinit var state_tag: String
+    private lateinit var stateTag: String
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
-    private val itemViewModel: ItemViewModel by lazy {
+    private val addItemViewModel: AddItemViewModel by lazy {
         ViewModelProviders.of(this).get(
-            ItemViewModel::class.java
+            AddItemViewModel::class.java
         )
     }
     private val firestoreViewModel: FirestoreViewModel by lazy {
@@ -38,10 +39,10 @@ class AddItemActivity : AppCompatActivity() {
 
         val intent = intent
         tag = intent.getStringExtra("tag").toString()
-        state_tag = intent.getStringExtra("state_tag").toString()
+        stateTag = intent.getStringExtra("state_tag").toString()
 
 
-        if (state_tag == "add_item" && tag.isNotEmpty()){
+        if (stateTag == "add_item" && tag.isNotEmpty()){
             input_identifier_item.text = Editable.Factory.getInstance()
                 .newEditable(tag)
         }
@@ -64,21 +65,21 @@ class AddItemActivity : AppCompatActivity() {
         }
     }
 
-    private fun addDevice(name: String) {
+    private fun addItem(name: String) {
         try {
             val item = ItemEntity(
                 tag,
                 name,
                 "IN"
             )
-            itemViewModel.insert(item)
+            addItemViewModel.insert(item)
             firestoreViewModel.saveItem(item)
             Toast.makeText(
                 this,
                 resources.getString(R.string.item_saved),
                 Toast.LENGTH_SHORT
             ).show()
-            val intent1 = Intent(this,MainActivity::class.java)
+            val intent1 = Intent(this, MainActivity::class.java)
             startActivity(intent1)
 
         } catch (e: Exception) {
@@ -95,7 +96,7 @@ class AddItemActivity : AppCompatActivity() {
         if (input_identifier_name.text.isNotEmpty() && input_identifier_item.text.isNotEmpty()) {
             if (input_identifier_item.text.length == 24) {
                 try {
-                    addDevice(input_identifier_name.text.toString())
+                    addItem(input_identifier_name.text.toString())
                     Toast.makeText(
                         this,
                         resources.getString(R.string.item_saved),
