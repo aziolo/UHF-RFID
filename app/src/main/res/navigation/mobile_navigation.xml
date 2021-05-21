@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_rules"
-        android:name="ale.ziolo.uhf_rfid.view.ui.home.RulesFragment"
+        android:name="ale.ziolo.uhf_rfid.view.ui.ruleFragment.RulesFragment"
         android:label="@string/title_items"
         tools:layout="@layout/fragment_rules" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="ale.ziolo.uhf_rfid.view.ui.profile.ProfileFragment"
+        android:name="ale.ziolo.uhf_rfid.view.ui.profileFragment.ProfileFragment"
         android:label="@string/title_rules"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_items"
-        android:name="ale.ziolo.uhf_rfid.view.ui.items.ItemsFragment"
+        android:name="ale.ziolo.uhf_rfid.view.ui.itemsFragment.ItemsFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_items" />
 </navigation>

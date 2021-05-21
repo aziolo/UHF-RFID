@@ -1,4 +1,4 @@
-package ale.ziolo.uhf_rfid.view.ui.items
+package ale.ziolo.uhf_rfid.view.ui.itemsFragment
 
 import ale.ziolo.uhf_rfid.databinding.FragmentItemsBinding
 import ale.ziolo.uhf_rfid.functions.ItemListAdapter
@@ -43,7 +43,7 @@ class ItemsFragment : Fragment() {
         adapter = ItemListAdapter(this)
         binding.itemRecycleView.layoutManager = LinearLayoutManager(context)
         binding.itemRecycleView.adapter = adapter
-        itemViewModel.getAllData().observe(this, Observer<List<ItemEntity>> { updatedList ->
+        itemViewModel.getAllData().observe(viewLifecycleOwner, Observer<List<ItemEntity>> { updatedList ->
             adapter.setItem(updatedList!!)
         })
 

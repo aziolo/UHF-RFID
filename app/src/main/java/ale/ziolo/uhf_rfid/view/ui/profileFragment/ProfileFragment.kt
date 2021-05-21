@@ -1,4 +1,4 @@
-package ale.ziolo.uhf_rfid.view.ui.profile
+package ale.ziolo.uhf_rfid.view.ui.profileFragment
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.databinding.FragmentProfileBinding
 import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity

@@ -11,6 +11,9 @@ interface ItemDao {
     fun getAll(): LiveData<List<ItemEntity>>
 
     @Query("SELECT * FROM item")
+    fun getList(): List<ItemEntity>
+
+    @Query("SELECT * FROM item")
     fun getOneAndOnly(): ItemEntity
 
     @Insert

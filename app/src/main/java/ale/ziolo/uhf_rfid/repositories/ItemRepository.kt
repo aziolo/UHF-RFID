@@ -4,14 +4,12 @@ import ale.ziolo.uhf_rfid.model.AppDataBase
 import ale.ziolo.uhf_rfid.model.daos.ItemDao
 import ale.ziolo.uhf_rfid.model.daos.ProfileDao
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
-import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 
 import android.app.Application
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 
 class ItemRepository(application: Application) {
     private var dao: ItemDao
@@ -27,7 +25,6 @@ class ItemRepository(application: Application) {
     fun getAllItems(): LiveData<List<ItemEntity>>{
         return allItems
     }
-
 
     fun insert(item: ItemEntity) {
         InsertAsyncTask(
@@ -68,6 +65,19 @@ class ItemRepository(application: Application) {
                 state = false
                 Log.e("UPDATE", "operation update item failed")
             }
+        }
+    }
+
+    fun getList(): List<ItemEntity> {
+        val dao = dao
+        return GetListAsyncTask(
+            dao
+        ).execute().get()
+    }
+    private class GetListAsyncTask(val dao: ItemDao) :
+        AsyncTask<String, Unit, List<ItemEntity>>() {
+        override fun doInBackground(vararg params: String?): List<ItemEntity> {
+            return dao.getList()
         }
     }
 }

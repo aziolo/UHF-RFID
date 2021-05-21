@@ -1,7 +1,8 @@
-package ale.ziolo.uhf_rfid.view.ui.home
+package ale.ziolo.uhf_rfid.view.ui.ruleFragment
 
 import ale.ziolo.uhf_rfid.databinding.FragmentRulesBinding
 import ale.ziolo.uhf_rfid.view.ui.addItem.AddItemActivity
+import ale.ziolo.uhf_rfid.view.ui.addRule.AddRuleActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,7 +36,7 @@ private var _binding: FragmentRulesBinding? = null
 //    })
 
       binding.buttonAddRule.setOnClickListener {
-          val intent = Intent(context, AddItemActivity::class.java)
+          val intent = Intent(context, AddRuleActivity::class.java)
           startActivity(intent)
       }
 

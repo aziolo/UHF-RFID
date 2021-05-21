@@ -113,6 +113,13 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
             }
     }
 
+    fun saveRule(ruleEntity: RuleEntity) {
+        firebaseRepository.saveRuleToFirebase(ruleEntity)
+            .addOnSuccessListener { Log.i(TAG, "Successfully add rule to Database Firestore!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error adding document", e)
+            }
+    }
     companion object {
         const val TAG = "FIRESTORE_VIEW_MODEL"
     }

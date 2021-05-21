@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var token: String
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
-
     private val mainViewModel: MainViewModel by lazy {
         ViewModelProviders.of(this).get(
             MainViewModel::class.java

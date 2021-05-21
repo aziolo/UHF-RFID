@@ -2,6 +2,7 @@ package ale.ziolo.uhf_rfid.repositories
 
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import android.app.Application
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -62,6 +63,14 @@ class FirestoreRepository(val application: Application) {
     ): Task<Transaction> {
         return firestoreDB.runTransaction { transaction ->
             transaction.set(itemCollectionReference.document(item.tag), item)
+        }
+    }
+
+    fun saveRuleToFirebase(
+        rule: RuleEntity
+    ): Task<Transaction> {
+        return firestoreDB.runTransaction { transaction ->
+            transaction.set(ruleCollectionReference.document(rule.id.toString()), rule)
         }
     }
 

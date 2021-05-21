@@ -52,21 +52,21 @@ class BarcodeResultBottomSheet(state: String) : BottomSheetDialogFragment() {
             bottoom_accept.setOnClickListener {
                 if(state == "device"){
                     val intent = Intent(
-                        activity!!.baseContext,
+                        requireActivity().baseContext,
                         AddDeviceActivity::class.java
                     )
                     intent.putExtra("tag", tag)
                     intent.putExtra("state_tag", "add_device")
-                    activity!!.startActivity(intent)
+                    requireActivity().startActivity(intent)
                 }
                 if(state == "item"){
                     val intent = Intent(
-                        activity!!.baseContext,
+                        requireActivity().baseContext,
                         AddItemActivity::class.java
                     )
                     intent.putExtra("tag", tag)
                     intent.putExtra("state_tag", "add_item")
-                    activity!!.startActivity(intent)
+                    requireActivity().startActivity(intent)
                 }
 
             }

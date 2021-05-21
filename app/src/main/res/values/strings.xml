@@ -90,5 +90,16 @@
     <string name="message_subscribed">Subscribed to topic</string>
     <string name="notification_channel_description">Item reminder</string>
 
+    //new rule
+    // new item
+    <string name="add_rule">Dodaj regułę</string>
+    <string name="rule_intro">Reguły służą do łączenia elementów w grupy i schematyzowania zachowań. Okreś przedziały czasowe dla reguły i elementy, o których chcesz pamiętać.</string>
+    <string name="rule_saved">Utworzono nową regułę.</string>
+    <string name="rule_name">Nazwa</string>
+    <string name="start">Od:</string>
+    <string name="stop">Do:</string>
+    <string name="elements">Dodaj elementy:</string>
+    <string name="priority">Wybierz priorytetowy element:</string>
+
 
 </resources>
