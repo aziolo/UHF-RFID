@@ -1,7 +1,7 @@
 package ale.ziolo.uhf_rfid.view.ui.scannerQR
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.functions.MyImageAnalyzer
+import ale.ziolo.uhf_rfid.MyImageAnalyzer
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
