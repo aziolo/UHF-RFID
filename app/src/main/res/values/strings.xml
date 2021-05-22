@@ -64,6 +64,7 @@
     <string name="title_items">Statusy</string>
     <string name="title_profile">Profil</string>
     <string name="title_rules">Reguły</string>
+    <string name="google_error">Błąd usług Google. Aplikacja nie będzie działać prawidłowo.</string>
 
     //item fragment
     <string name="title_text_items">Monitorowane \nelementy</string>
@@ -75,6 +76,9 @@
 
     //rule fragment
     <string name="title_text_rule">Zapisane \nreguły</string>
+    <string name="contain_items">Dotyczy elementów:</string>
+    <string name="time_slot">Slot czasowy:</string>
+    <string name="priorytet">(*) priorytet</string>
 
     //profile fragment
     <string name="title_text_profile">Mój \nprofil</string>
@@ -91,7 +95,6 @@
     <string name="notification_channel_description">Item reminder</string>
 
     //new rule
-    // new item
     <string name="add_rule">Dodaj regułę</string>
     <string name="rule_intro">Reguły służą do łączenia elementów w grupy i schematyzowania zachowań. Okreś przedziały czasowe dla reguły i elementy, o których chcesz pamiętać.</string>
     <string name="rule_saved">Utworzono nową regułę.</string>

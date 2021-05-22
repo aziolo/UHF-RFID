@@ -1,7 +1,6 @@
 package ale.ziolo.uhf_rfid.view.ui.itemsFragment
 
 import ale.ziolo.uhf_rfid.databinding.FragmentItemsBinding
-import ale.ziolo.uhf_rfid.functions.ItemListAdapter
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.view.ui.addItem.AddItemActivity
 import android.content.Intent
@@ -39,7 +38,6 @@ class ItemsFragment : Fragment() {
         _binding = FragmentItemsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-       // viewModel = ViewModelProvider(this).get(ItemsViewModel::class.java)
         adapter = ItemListAdapter(this)
         binding.itemRecycleView.layoutManager = LinearLayoutManager(context)
         binding.itemRecycleView.adapter = adapter

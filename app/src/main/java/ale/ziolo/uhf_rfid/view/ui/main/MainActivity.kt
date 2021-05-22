@@ -99,12 +99,18 @@ class MainActivity : AppCompatActivity() {
     private fun getToken(){
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                Log.w("GOOGLE", "Fetching FCM registration token failed", task.exception)
+                token =resources.getString(R.string.google_error)
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.google_error),
+                    Toast.LENGTH_LONG
+                ).show()
                 return@OnCompleteListener
             }
             // Get new FCM registration token
             token = task.result
-            Log.e("TAG", token)
+            Log.e("GOOLGE", token)
             Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
         })
     }

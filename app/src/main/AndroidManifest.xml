@@ -19,10 +19,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.ui.addRule.AddRuleActivity"></activity>
         <activity android:name=".view.ui.addItem.AddItemActivity" />
-        <activity android:name=".view.ScannerQRActivity" />
+        <activity android:name=".view.ui.scannerQR.ScannerQRActivity" />
         <activity android:name=".view.ui.addDevice.AddDeviceActivity" />
         <activity android:name=".view.ui.synchronize.SynchronizeActivity" />
-        <activity android:name=".view.ManageAccountActivity" />
         <activity android:name=".view.ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

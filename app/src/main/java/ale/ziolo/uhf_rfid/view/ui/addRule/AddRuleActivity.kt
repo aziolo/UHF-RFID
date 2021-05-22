@@ -13,13 +13,11 @@ import android.content.res.ColorStateList
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.CompoundButtonCompat
@@ -200,7 +198,7 @@ class AddRuleActivity : AppCompatActivity() {
                 val btn = group.getChildAt(x) as RadioButton
                 if (btn.id == checkedId) {
                     try {
-                        val priority = RuleEntity(
+                        val rule = RuleEntity(
                             old.id,
                             old.start,
                             old.stop,
@@ -211,8 +209,8 @@ class AddRuleActivity : AppCompatActivity() {
                             old.name2,
                             final[x].tag
                         )
-                        addRuleViewModel.update(priority)
-                        firestoreViewModel.saveRule(priority)
+                        addRuleViewModel.insert(rule)
+                        firestoreViewModel.saveRule(rule)
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         final.clear()

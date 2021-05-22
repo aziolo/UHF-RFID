@@ -2,8 +2,6 @@ package ale.ziolo.uhf_rfid.functions
 
 import ale.ziolo.uhf_rfid.view.BarcodeResultBottomSheet
 import android.annotation.SuppressLint
-import android.content.Context
-import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.fragment.app.FragmentManager

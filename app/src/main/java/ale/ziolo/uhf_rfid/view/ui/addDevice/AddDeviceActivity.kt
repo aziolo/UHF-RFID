@@ -2,7 +2,7 @@ package ale.ziolo.uhf_rfid.view.ui.addDevice
 
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
-import ale.ziolo.uhf_rfid.view.ScannerQRActivity
+import ale.ziolo.uhf_rfid.view.ui.scannerQR.ScannerQRActivity
 import ale.ziolo.uhf_rfid.view.ui.addItem.AddItemActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel

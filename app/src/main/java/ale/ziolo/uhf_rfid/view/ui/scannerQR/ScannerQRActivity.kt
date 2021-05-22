@@ -1,4 +1,4 @@
-package ale.ziolo.uhf_rfid.view
+package ale.ziolo.uhf_rfid.view.ui.scannerQR
 
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.functions.MyImageAnalyzer

@@ -2,7 +2,6 @@ package ale.ziolo.uhf_rfid.view.ui.profileFragment
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.databinding.FragmentProfileBinding
 import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
-import ale.ziolo.uhf_rfid.view.ManageAccountActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,8 +35,7 @@ class ProfileFragment : Fragment() {
         fillValues()
 
         binding.buttonEditProfile.setOnClickListener {
-            val intent = Intent(context, ManageAccountActivity::class.java)
-            startActivity(intent)
+            TODO()
         }
         binding.buttonChangeDevice.setOnClickListener {
             val intent = Intent(context, AddDeviceActivity::class.java)

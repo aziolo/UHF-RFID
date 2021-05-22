@@ -2,7 +2,7 @@ package ale.ziolo.uhf_rfid.view.ui.addItem
 
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
-import ale.ziolo.uhf_rfid.view.ScannerQRActivity
+import ale.ziolo.uhf_rfid.view.ui.scannerQR.ScannerQRActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
 import android.app.Activity
@@ -69,8 +69,7 @@ class AddItemActivity : AppCompatActivity() {
         try {
             val item = ItemEntity(
                 tag,
-                name,
-                "IN"
+                name
             )
             addItemViewModel.insert(item)
             firestoreViewModel.saveItem(item)

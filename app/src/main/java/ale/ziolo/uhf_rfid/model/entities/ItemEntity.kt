@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 @Entity (tableName = "Item")
 data class ItemEntity(
     @PrimaryKey val tag: String,
-    @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "status") var status: String
+    @ColumnInfo(name = "name") var name: String
 ){
-    constructor() : this("", "", "")
+    constructor() : this("", "")
 }

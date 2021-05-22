@@ -125,8 +125,8 @@ class LoginActivity : AppCompatActivity() {
 
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Log.e("TAG", "Google sign in failed", e)
-                Log.e("TAG", "Google sign in failed tutututu", e)
+                Log.e("GOOGLE", "Google sign in failed", e)
+                Log.e("GOOLGE", "Google sign in failed tutututu", e)
                 Toast.makeText(
                     this,
                     resources.getString(R.string.auth_failed_early),
@@ -153,10 +153,10 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "signInWithCredential:success")
+                    Log.d("GOOGLE", "signInWithCredential:success")
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("TAG", "signInWithCredential:failure", task.exception)
+                    Log.w("GOOGLE", "signInWithCredential:failure", task.exception)
                 }
             }
     }
@@ -166,14 +166,14 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     //Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "createUserWithEmail:success")
+                    Log.d("GOOGLE", "createUserWithEmail:success")
                     val name = mNAME
                     val email = mEMAIL
                     createAccount(name, email)
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("TAG", "createUserWithEmail:failure", task.exception)
+                    Log.w("GOOGLE", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
                         resources.getString(R.string.email_already_used),
@@ -188,14 +188,14 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "signInWithEmail:success")
+                    Log.d("GOOGLE", "signInWithEmail:success")
                     val intent = Intent(this, SynchronizeActivity::class.java)
                     intent.putExtra("email", mEMAIL)
                     intent.putExtra("name", mNAME)
                     startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("TAG", "signInWithEmail:failure", task.exception)
+                    Log.w("GOOGLE", "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
                         resources.getString(R.string.bad_email),

@@ -1,7 +1,8 @@
 package ale.ziolo.uhf_rfid.view.ui.ruleFragment
 
-import ale.ziolo.uhf_rfid.model.entities.ItemEntity
-import ale.ziolo.uhf_rfid.repositories.ItemRepository
+
+import ale.ziolo.uhf_rfid.model.entities.RuleEntity
+import ale.ziolo.uhf_rfid.repositories.RuleRepository
 import android.app.Application
 import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
@@ -11,13 +12,13 @@ import androidx.lifecycle.ViewModel
 
 class RulesViewModel(@NonNull application: Application?) : AndroidViewModel(application!!) {
 
-    private val repository: ItemRepository = ItemRepository(application!!)
-    private val allData: LiveData<List<ItemEntity>> = repository.getAllItems()
+    private val repository: RuleRepository = RuleRepository(application!!)
+    private val allData: LiveData<List<RuleEntity>> = repository.getAllRules()
 
-    fun getAllData(): LiveData<List<ItemEntity>> {
+    fun getAllData(): LiveData<List<RuleEntity>> {
         return allData
     }
-    fun updateStatus(item: ItemEntity){
+    fun updateStatus(item: RuleEntity){
         repository.update(item)
     }
 
