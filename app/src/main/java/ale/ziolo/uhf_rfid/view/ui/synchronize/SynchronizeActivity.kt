@@ -1,18 +1,22 @@
 package ale.ziolo.uhf_rfid.view.ui.synchronize
 
 import ale.ziolo.uhf_rfid.R
+import ale.ziolo.uhf_rfid.databinding.ActivitySynchronizeBinding
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +26,8 @@ class SynchronizeActivity : AppCompatActivity() {
 
     private lateinit var cloudItemsList: List<ItemEntity>
     private lateinit var cloudRulesList: List<RuleEntity>
+    private lateinit var binding: ActivitySynchronizeBinding
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
     private val synchronizeViewModel: SynchronizeViewModel by lazy {
@@ -38,7 +44,9 @@ class SynchronizeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_synchronize)
+        binding = ActivitySynchronizeBinding.inflate(layoutInflater)
         showDialog()
+        spin()
 
     }
 
@@ -58,7 +66,7 @@ class SynchronizeActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun createProfile(name: String, email: String){
+    private fun createProfile(name: String, email: String) {
         try {
             createProfileEntity(
                 name,
@@ -79,6 +87,7 @@ class SynchronizeActivity : AppCompatActivity() {
             ).show()
         }
     }
+
     private fun createProfileEntity(
         name: String,
         email: String
@@ -94,33 +103,44 @@ class SynchronizeActivity : AppCompatActivity() {
     }
 
     private fun download() {
-        try {
-            firestoreViewModel.getProfile().observe(this, Observer {
-                val profile = it[0]
-                synchronizeViewModel.insertProfile(profile)
-            })
-            firestoreViewModel.getAllItems().observe(this, Observer {
-                cloudItemsList = it
-                for (i in cloudItemsList.indices) {
-                    synchronizeViewModel.insertItem(cloudItemsList[i])
+        firestoreViewModel.getProfile().observe(this, Observer {
+            val profile = it[0]
+            synchronizeViewModel.insertProfile(profile)
+        })
+        firestoreViewModel.getAllItems().observe(this, Observer {
+            cloudItemsList = it
+            for (i in cloudItemsList.indices) {
+                synchronizeViewModel.insertItem(cloudItemsList[i])
+            }
+        })
+        firestoreViewModel.getAllRules().observe(this, Observer {
+            cloudRulesList = it
+            for (i in cloudRulesList.indices) {
+                synchronizeViewModel.insertRule(cloudRulesList[i])
+            }
+        })
+    }
+
+
+    private fun spin() {
+       // binding.progressBar.indeterminateDrawable.setColorFilter(ContextCompat.getColor(this, R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+        Thread(Runnable {
+            this@SynchronizeActivity.runOnUiThread {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            try {
+                var i = 0
+                while (i < Int.MAX_VALUE) {
+                    i++
                 }
-            })
-            firestoreViewModel.getAllRules().observe(this, Observer {
-                cloudRulesList = it
-                for (i in cloudRulesList.indices) {
-                    synchronizeViewModel.insertRule(cloudRulesList[i])
-                }
-            })
-        } catch (e: Exception){
-            Log.w("TAG", "download old data failed",e)
-            Toast.makeText(
-                baseContext,
-                resources.getString(R.string.failed_update),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+            this@SynchronizeActivity.runOnUiThread {
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
+        }).start()
     }
 
 }

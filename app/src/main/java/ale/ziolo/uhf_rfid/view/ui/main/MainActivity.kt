@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
                     resources.getString(R.string.google_error),
                     Toast.LENGTH_LONG
                 ).show()
+                addToken()
                 return@OnCompleteListener
             }
             // Get new FCM registration token

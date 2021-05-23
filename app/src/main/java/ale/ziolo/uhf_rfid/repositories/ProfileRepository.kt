@@ -3,8 +3,10 @@ package ale.ziolo.uhf_rfid.repositories
 import ale.ziolo.uhf_rfid.model.AppDataBase
 import ale.ziolo.uhf_rfid.model.daos.ProfileDao
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.util.Log
 
@@ -82,6 +84,12 @@ class ProfileRepository(private val application: Application) {
             } catch (e: RuntimeException) {
                 Log.e("INSERT", "operation insert new profile failed")
             }
+        }
+        override fun onPostExecute(result: Unit?) {
+            super.onPostExecute(result)
+            val intent = Intent(con, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            con.startActivity(intent)
         }
 
     }
