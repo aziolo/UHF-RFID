@@ -1,9 +1,10 @@
-package ale.ziolo.uhf_rfid.view.ui.itemsFragment
+package ale.ziolo.uhf_rfid.view.ui.ruleFragment
 
 import ale.ziolo.uhf_rfid.R
-import ale.ziolo.uhf_rfid.databinding.RecyclerViewElementItemsBinding
+import ale.ziolo.uhf_rfid.databinding.RecyclerViewElementRulesBinding
 import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
-import ale.ziolo.uhf_rfid.model.entities.ItemEntity
+import ale.ziolo.uhf_rfid.model.entities.RuleEntity
+import ale.ziolo.uhf_rfid.view.ui.itemsFragment.ItemListAdapter
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,14 +13,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter<ItemListAdapter.ViewHolder>() {
+class RuleListAdapter(private val fragment: RulesFragment): RecyclerView.Adapter<RuleListAdapter.ViewHolder>() {
 
 
-    private var list: List<ItemEntity> = ArrayList()
-    private lateinit var chosen: ItemEntity
-    private val viewModel: ItemsViewModel by lazy {
+    private var list: List<RuleEntity> = ArrayList()
+    private lateinit var chosen: RuleEntity
+    private val viewModel: RulesViewModel by lazy {
         ViewModelProviders.of(fragment).get(
-            ItemsViewModel::class.java
+            RulesViewModel::class.java
         )
     }
     private val firestoreViewModel: FirestoreViewModel by lazy {
@@ -34,16 +35,36 @@ class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter
     ): ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context)
-        val binding = RecyclerViewElementItemsBinding.inflate(inflater, parent, false)
+        val binding = RecyclerViewElementRulesBinding.inflate(inflater, parent, false)
 
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem = list[position]
+        val currentRule = list[position]
+        val slot = currentRule.start + " - " + currentRule.stop
+        var elements = currentRule.name1
+        if (currentRule.priority == currentRule.tag1) elements = elements + " (*)"
+        if (currentRule.name2.isNotEmpty()) {
+            elements = elements + ",   " + currentRule.name2
+        }
+        if (currentRule.priority == currentRule.tag2) elements = elements + " (*)"
+        if (currentRule.name3.isNotEmpty()) {
+            elements = elements + ",   " + currentRule.name3
+        }
+        if (currentRule.priority == currentRule.tag3) elements = elements + " (*)"
+        if (currentRule.name4.isNotEmpty()) {
+            elements = elements + ",   " + currentRule.name4
+        }
+        if (currentRule.priority == currentRule.tag4) elements = elements + " (*)"
+        if (currentRule.name5.isNotEmpty()) {
+            elements = elements + ",   " + currentRule.name5
+        }
+        if (currentRule.priority == currentRule.tag5) elements = elements + " (*)"
 
-        holder.name.text = currentItem.name
-        holder.tag.text = currentItem.tag
+        holder.name.text = currentRule.title
+        holder.slot.text = slot
+        holder.elements.text = elements
         holder.delete.setOnClickListener{
             chooseValue(holder)
             showDeleteDialog()
@@ -54,19 +75,20 @@ class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter
         return list.size
     }
 
-    fun setItem(list: List<ItemEntity>) {
+    fun setItem(list: List<RuleEntity>) {
         this.list = list
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(private val binding: RecyclerViewElementItemsBinding) : RecyclerView.ViewHolder(binding.root) {
-        var name = binding.rviTextItemName
-        var tag = binding.rviTextItemTag
-        var delete = binding.rviDeleteButton
+    inner class ViewHolder(private val binding: RecyclerViewElementRulesBinding) : RecyclerView.ViewHolder(binding.root) {
+        var name = binding.rveTextRuleName
+        var slot = binding.rveTimeSlot
+        var elements = binding.rveElements
+        var delete = binding.rveDeleteButton
 
     }
 
-    private fun chooseValue(holder: ViewHolder) {
+    private fun chooseValue(holder: RuleListAdapter.ViewHolder) {
         chosen = list[holder.adapterPosition]
     }
 
@@ -78,7 +100,7 @@ class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter
         }
         val dialogBuilder = AlertDialog.Builder(fragment.requireContext()).create()
         dialogBuilder.setTitle(fragment.requireContext().resources.getString(R.string.delete))
-        dialogBuilder.setMessage(fragment.requireContext().resources.getString(R.string.delete_accept_item))
+        dialogBuilder.setMessage(fragment.requireContext().resources.getString(R.string.delete_accept_rule))
         dialogBuilder.setButton(
             DialogInterface.BUTTON_NEGATIVE,
             "Nie",
@@ -94,7 +116,7 @@ class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter
     private fun delete(){
         try {
             viewModel.delete(chosen)
-            firestoreViewModel.deleteItem(chosen)
+            firestoreViewModel.deleteRule(chosen)
             notifyDataSetChanged()
             Toast.makeText(
                 fragment.context,
@@ -105,7 +127,7 @@ class ItemListAdapter(private val fragment: ItemsFragment): RecyclerView.Adapter
         }catch (e: Exception){
             Toast.makeText(
                 fragment.context,
-                fragment.requireContext().resources.getString(R.string.not_deleted),
+                fragment.requireContext().resources.getString(R.string.deleted),
                 Toast.LENGTH_SHORT
             ).show()
         }

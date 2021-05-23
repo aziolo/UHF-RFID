@@ -1,10 +1,12 @@
 package ale.ziolo.uhf_rfid.view.ui.addItem
 
 import ale.ziolo.uhf_rfid.R
+import ale.ziolo.uhf_rfid.databinding.ActivityAddItemBinding
+import ale.ziolo.uhf_rfid.databinding.ActivityAddRuleBinding
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.view.ui.scannerQR.ScannerQRActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,7 @@ class AddItemActivity : AppCompatActivity() {
 
     private lateinit var tag: String
     private lateinit var stateTag: String
+    private lateinit var binding: ActivityAddItemBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.AndroidViewModelFactory
@@ -33,69 +36,58 @@ class AddItemActivity : AppCompatActivity() {
             FirestoreViewModel::class.java
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_item)
+        binding = ActivityAddItemBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val intent = intent
         tag = intent.getStringExtra("tag").toString()
         stateTag = intent.getStringExtra("state_tag").toString()
 
 
-        if (stateTag == "add_item" && tag.isNotEmpty()){
+        if (stateTag == "add_item" && tag.isNotEmpty()) {
             input_identifier_item.text = Editable.Factory.getInstance()
                 .newEditable(tag)
         }
 
-        button_use_qr_item.setOnClickListener {
+        binding.buttonUseQrItem.setOnClickListener {
             //new activity qr
             val intent = Intent(this, ScannerQRActivity::class.java)
-            intent.putExtra("state","item")
+            intent.putExtra("state", "item")
             startActivity(intent)
         }
 
-        button_add_item.setOnClickListener {
+
+        binding.buttonAddItem.setOnClickListener {
             check()
         }
 
-        button_skip_item.setOnClickListener {
+        binding.buttonSkipItem.setOnClickListener {
             //new activity qr
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun addItem(name: String) {
-        try {
-            val item = ItemEntity(
-                tag,
-                name
-            )
-            addItemViewModel.insert(item)
-            firestoreViewModel.saveItem(item)
-            Toast.makeText(
-                this,
-                resources.getString(R.string.item_saved),
-                Toast.LENGTH_SHORT
-            ).show()
-            val intent1 = Intent(this, MainActivity::class.java)
-            startActivity(intent1)
-
-        } catch (e: Exception) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.try_again),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+    private fun addItem(name: String, taggi: String) {
+        val item = ItemEntity(
+            taggi,
+            name
+        )
+        addItemViewModel.insert(item)
+        firestoreViewModel.saveItem(item)
+        val intent1 = Intent(this, MainActivity::class.java)
+        startActivity(intent1)
     }
 
 
     private fun check() {
-        if (input_identifier_name.text.isNotEmpty() && input_identifier_item.text.isNotEmpty()) {
-            if (input_identifier_item.text.length == 24) {
+        if (binding.inputIdentifierName.text.isNotEmpty() && binding.inputIdentifierItem.text.isNotEmpty()) {
+            if (binding.inputIdentifierItem.text.length == 24) {
                 try {
-                    addItem(input_identifier_name.text.toString())
+                    addItem(binding.inputIdentifierName.text.toString(), binding.inputIdentifierItem.text.toString())
                     Toast.makeText(
                         this,
                         resources.getString(R.string.item_saved),
@@ -120,7 +112,7 @@ class AddItemActivity : AppCompatActivity() {
                     .show()
             }
         }
-        if (input_identifier_name.text.isEmpty() || input_identifier_item.text.isEmpty()) {
+        if (binding.inputIdentifierName.text.isEmpty() || binding.inputIdentifierItem.text.isEmpty()) {
             Toast.makeText(this, resources.getString(R.string.complete_all), Toast.LENGTH_SHORT)
                 .show()
         }

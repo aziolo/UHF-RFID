@@ -1,4 +1,4 @@
-package ale.ziolo.uhf_rfid.viewModels
+package ale.ziolo.uhf_rfid.firestore
 
 import ale.ziolo.uhf_rfid.repositories.FirestoreRepository
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
@@ -120,6 +120,21 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 Log.e(TAG, "Error adding document", e)
             }
     }
+    fun deleteItem(itemEntity: ItemEntity) {
+        firebaseRepository.deleteItemFromFirebase(itemEntity)
+            .addOnSuccessListener { Log.i(TAG, "Successfully deleted item from firebase!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error deleting document", e)
+            }
+    }
+    fun deleteRule(ruleEntity: RuleEntity) {
+        firebaseRepository.deleteRuleFromFirebase(ruleEntity)
+            .addOnSuccessListener { Log.i(TAG, "Successfully deleted rule from firebase!") }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error deleting document", e)
+            }
+    }
+
     companion object {
         const val TAG = "FIRESTORE_VIEW_MODEL"
     }

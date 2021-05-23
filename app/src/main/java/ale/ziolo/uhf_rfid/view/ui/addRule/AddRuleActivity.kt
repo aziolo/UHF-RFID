@@ -5,7 +5,7 @@ import ale.ziolo.uhf_rfid.databinding.ActivityAddRuleBinding
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -129,27 +129,8 @@ class AddRuleActivity : AppCompatActivity() {
 
     private fun addRule(title: String) {
         val id: Long = UUID.randomUUID().mostSignificantBits
-        Toast.makeText(
-            this,
-            final.size.toString(),
-            Toast.LENGTH_SHORT
-        ).show()
         try {
             var rule = RuleEntity()
-            if (final.size == 2) {
-                rule = RuleEntity(
-                    id,
-                    startTime,
-                    stopTime,
-                    title,
-                    final[0].tag,
-                    final[1].tag,
-                    final[0].name,
-                    final[1].name,
-                    ""
-                )
-                showRadioButtonDialog(rule)
-            }
             if (final.size == 1) {
                 rule = RuleEntity(
                     id,
@@ -157,8 +138,14 @@ class AddRuleActivity : AppCompatActivity() {
                     stopTime,
                     title,
                     final[0].tag,
-                    "",
                     final[0].name,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
                     "",
                     final[0].tag
                 )
@@ -173,6 +160,86 @@ class AddRuleActivity : AppCompatActivity() {
                     resources.getString(R.string.rule_saved),
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+            if (final.size == 2) {
+                rule = RuleEntity(
+                    id,
+                    startTime,
+                    stopTime,
+                    title,
+                    final[0].tag,
+                    final[0].name,
+                    final[1].tag,
+                    final[1].name,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                )
+                showRadioButtonDialog(rule)
+            }
+            if (final.size == 3) {
+                rule = RuleEntity(
+                    id,
+                    startTime,
+                    stopTime,
+                    title,
+                    final[0].tag,
+                    final[0].name,
+                    final[1].tag,
+                    final[1].name,
+                    final[2].tag,
+                    final[2].name,
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                )
+                showRadioButtonDialog(rule)
+            }
+            if (final.size == 4) {
+                rule = RuleEntity(
+                    id,
+                    startTime,
+                    stopTime,
+                    title,
+                    final[0].tag,
+                    final[0].name,
+                    final[1].tag,
+                    final[1].name,
+                    final[2].tag,
+                    final[2].name,
+                    final[3].tag,
+                    final[3].name,
+                    "",
+                    "",
+                    ""
+                )
+                showRadioButtonDialog(rule)
+            }
+            if (final.size == 5) {
+                rule = RuleEntity(
+                    id,
+                    startTime,
+                    stopTime,
+                    title,
+                    final[0].tag,
+                    final[0].name,
+                    final[1].tag,
+                    final[1].name,
+                    final[2].tag,
+                    final[2].name,
+                    final[3].tag,
+                    final[3].name,
+                    final[4].tag,
+                    final[4].name,
+                    ""
+                )
+                showRadioButtonDialog(rule)
             }
 
         } catch (e: Exception) {
@@ -204,9 +271,15 @@ class AddRuleActivity : AppCompatActivity() {
                             old.stop,
                             old.title,
                             old.tag1,
-                            old.tag2,
                             old.name1,
+                            old.tag2,
                             old.name2,
+                            old.tag3,
+                            old.name3,
+                            old.tag4,
+                            old.name4,
+                            old.tag5,
+                            old.name5,
                             final[x].tag
                         )
                         addRuleViewModel.insert(rule)

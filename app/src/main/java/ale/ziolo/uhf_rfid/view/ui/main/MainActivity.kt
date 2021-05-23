@@ -3,7 +3,7 @@ package ale.ziolo.uhf_rfid.view.ui.main
 import ale.ziolo.uhf_rfid.R
 import ale.ziolo.uhf_rfid.databinding.ActivityMainBinding
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
@@ -101,12 +101,12 @@ class MainActivity : AppCompatActivity() {
             if (!task.isSuccessful) {
                 Log.w("GOOGLE", "Fetching FCM registration token failed", task.exception)
                 token =resources.getString(R.string.google_error)
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.google_error),
-                    Toast.LENGTH_LONG
-                ).show()
-                addToken()
+//                Toast.makeText(
+//                    this,
+//                    resources.getString(R.string.google_error),
+//                    Toast.LENGTH_LONG
+//                ).show()
+//                addToken()
                 return@OnCompleteListener
             }
             // Get new FCM registration token

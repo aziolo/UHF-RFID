@@ -74,5 +74,17 @@ class FirestoreRepository(val application: Application) {
         }
     }
 
+    fun deleteItemFromFirebase(item: ItemEntity): Task<Transaction> {
+        return firestoreDB.runTransaction { transition ->
+            transition.delete((itemCollectionReference.document(item.tag.toString())))
+        }
+
+    }
+    fun deleteRuleFromFirebase(rule: RuleEntity): Task<Transaction> {
+        return firestoreDB.runTransaction { transition ->
+            transition.delete((ruleCollectionReference.document(rule.id.toString())))
+        }
+    }
+
 }
 

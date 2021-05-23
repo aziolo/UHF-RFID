@@ -9,7 +9,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository = ProfileRepository(application)
 
-    fun insertProfile(profile: ProfileEntity) {
-        repository.insertProfile(profile)
+    fun insertProfile(profile: ProfileEntity, mode: String) {
+        repository.insertProfile(profile, mode)
     }
 }

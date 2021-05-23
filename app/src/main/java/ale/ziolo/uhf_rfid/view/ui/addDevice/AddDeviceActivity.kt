@@ -5,7 +5,7 @@ import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.view.ui.scannerQR.ScannerQRActivity
 import ale.ziolo.uhf_rfid.view.ui.addItem.AddItemActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -72,10 +72,11 @@ class AddDeviceActivity : AppCompatActivity() {
     private fun addDevice() {
         try {
             val old = addDeviceViewModel.getProfile()
+            val newDevice = input_identifier.text.toString()
             val updated = ProfileEntity(
                 old.name,
                 old.email,
-                deviceId,
+                newDevice,
                 ""
             )
             addDeviceViewModel.updateProfile(updated)
@@ -99,30 +100,7 @@ class AddDeviceActivity : AppCompatActivity() {
     private fun check() {
         if (input_identifier.text.isNotEmpty()) {
             if (input_identifier.text.length == 20) {
-                try {
-                    addDevice()
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.item_saved),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    setResult(Activity.RESULT_OK, intent)
-                    finish()
-                } catch (e: Exception) {
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.try_again),
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-            } else {
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.bad_id),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                addDevice()
             }
         }
         if (input_identifier.text.isEmpty() ) {

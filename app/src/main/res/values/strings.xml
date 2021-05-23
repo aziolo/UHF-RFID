@@ -104,5 +104,12 @@
     <string name="elements">Dodaj elementy:</string>
     <string name="priority">Wybierz priorytetowy element:</string>
 
+    //delete
+    <string name="delete_accept_item">Czy na pewno chcesz usunąć element?</string>
+    <string name="delete_accept_rule">Czy na pewno chcesz usunąć regułe?</string>
+    <string name="delete">Usuwanie</string>
+    <string name="deleted">Usunięto.</string>
+    <string name="not_deleted">Nie udało się.</string>
+
 
 </resources>

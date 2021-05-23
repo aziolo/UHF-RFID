@@ -5,7 +5,7 @@ import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.view.ui.synchronize.SynchronizeActivity
 import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -278,7 +278,8 @@ class LoginActivity : AppCompatActivity() {
             "",
             ""
         )
-        loginViewModel.insertProfile(profile)
+
+        loginViewModel.insertProfile(profile, "start")
         firestoreViewModel.saveProfile(profile)
     }
 

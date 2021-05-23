@@ -3,8 +3,6 @@ package ale.ziolo.uhf_rfid.view.ui.ruleFragment
 import ale.ziolo.uhf_rfid.databinding.FragmentRulesBinding
 import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import ale.ziolo.uhf_rfid.view.ui.addRule.AddRuleActivity
-import ale.ziolo.uhf_rfid.view.ui.itemsFragment.ItemsViewModel
-import ale.ziolo.uhf_rfid.view.ui.itemsFragment.RuleListAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

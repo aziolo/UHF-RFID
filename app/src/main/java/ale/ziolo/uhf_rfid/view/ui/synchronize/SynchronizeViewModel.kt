@@ -15,8 +15,8 @@ class SynchronizeViewModel(application: Application) : AndroidViewModel(applicat
     private var itemRepo = ItemRepository(application)
     private var ruleRepo = RuleRepository(application)
 
-    fun insertProfile(profile: ProfileEntity) {
-        profileRepo.insertProfile(profile)
+    fun insertProfile(profile: ProfileEntity, mode: String) {
+        profileRepo.insertProfile(profile, mode)
     }
     fun insertItem(item: ItemEntity){
         itemRepo.insert(item)

@@ -6,17 +6,14 @@ import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
 import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
-import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
-import ale.ziolo.uhf_rfid.viewModels.FirestoreViewModel
+import ale.ziolo.uhf_rfid.firestore.FirestoreViewModel
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -98,14 +95,14 @@ class SynchronizeActivity : AppCompatActivity() {
             "",
             ""
         )
-        synchronizeViewModel.insertProfile(profile)
+        synchronizeViewModel.insertProfile(profile, "next")
         firestoreViewModel.saveProfile(profile)
     }
 
     private fun download() {
         firestoreViewModel.getProfile().observe(this, Observer {
             val profile = it[0]
-            synchronizeViewModel.insertProfile(profile)
+            synchronizeViewModel.insertProfile(profile, "next")
         })
         firestoreViewModel.getAllItems().observe(this, Observer {
             cloudItemsList = it

@@ -3,6 +3,7 @@ package ale.ziolo.uhf_rfid.repositories
 import ale.ziolo.uhf_rfid.model.AppDataBase
 import ale.ziolo.uhf_rfid.model.daos.ProfileDao
 import ale.ziolo.uhf_rfid.model.entities.ProfileEntity
+import ale.ziolo.uhf_rfid.view.ui.addDevice.AddDeviceActivity
 import ale.ziolo.uhf_rfid.view.ui.main.MainActivity
 import android.app.Application
 import android.content.Context
@@ -29,10 +30,11 @@ class ProfileRepository(private val application: Application) {
         ).execute().get()
     }
 
-    fun insertProfile(profile: ProfileEntity) {
+    fun insertProfile(profile: ProfileEntity, mode: String) {
         InsertNewProfileAsyncTask(
             dao,
-            con
+            con,
+            mode
         ).execute(profile)
     }
 
@@ -75,7 +77,7 @@ class ProfileRepository(private val application: Application) {
 
     }
 
-    private class InsertNewProfileAsyncTask(val dao: ProfileDao, val con: Context) :
+    private class InsertNewProfileAsyncTask(val dao: ProfileDao, val con: Context, val mode: String) :
         AsyncTask<ProfileEntity, Unit, Unit>() {
         override fun doInBackground(vararg params: ProfileEntity) {
             try {
@@ -87,9 +89,17 @@ class ProfileRepository(private val application: Application) {
         }
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
-            val intent = Intent(con, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            con.startActivity(intent)
+            if (mode == "first"){
+                val intent = Intent(con, AddDeviceActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                con.startActivity(intent)
+
+            }
+            if (mode == "next"){
+                val intent = Intent(con, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                con.startActivity(intent)
+            }
         }
 
     }

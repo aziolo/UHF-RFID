@@ -21,5 +21,8 @@ class RulesViewModel(@NonNull application: Application?) : AndroidViewModel(appl
     fun updateStatus(item: RuleEntity){
         repository.update(item)
     }
+    fun delete(rule: RuleEntity){
+        repository.delete(rule)
+    }
 
 }

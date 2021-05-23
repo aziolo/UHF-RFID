@@ -1,7 +1,9 @@
 package ale.ziolo.uhf_rfid.repositories
 
 import ale.ziolo.uhf_rfid.model.AppDataBase
+import ale.ziolo.uhf_rfid.model.daos.ItemDao
 import ale.ziolo.uhf_rfid.model.daos.RuleDao
+import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 import ale.ziolo.uhf_rfid.model.entities.RuleEntity
 import android.app.Application
 import android.content.Context
@@ -56,6 +58,26 @@ class RuleRepository(application: Application) {
                 Log.i("UPDATE", "operation update rule successful")
             } catch (e: Exception) {
                 Log.e("UPDATE", "operation update rule failed")
+            }
+        }
+    }
+
+    fun delete(rule: RuleEntity) {
+        val dao = dao
+        DeleteAsyncTask(
+            dao,
+            rule
+        ).execute()
+    }
+
+    private class DeleteAsyncTask(val dao: RuleDao, val rule: RuleEntity) :
+        AsyncTask<Unit, Unit, Unit>() {
+        override fun doInBackground(vararg params: Unit?) {
+            try {
+                dao.delete(rule)
+                Log.i("DELETE", "operation delete rule successful")
+            } catch (e: Exception) {
+                Log.e("DELETE", "operation delete rule failed")
             }
         }
     }

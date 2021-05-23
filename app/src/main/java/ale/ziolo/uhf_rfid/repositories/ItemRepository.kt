@@ -2,7 +2,6 @@ package ale.ziolo.uhf_rfid.repositories
 
 import ale.ziolo.uhf_rfid.model.AppDataBase
 import ale.ziolo.uhf_rfid.model.daos.ItemDao
-import ale.ziolo.uhf_rfid.model.daos.ProfileDao
 import ale.ziolo.uhf_rfid.model.entities.ItemEntity
 
 import android.app.Application
@@ -80,4 +79,25 @@ class ItemRepository(application: Application) {
             return dao.getList()
         }
     }
+
+    fun deleteItem(item: ItemEntity) {
+        val dao = dao
+        DeleteItemAsyncTask(
+            dao,
+            item
+        ).execute()
+    }
+
+    private class DeleteItemAsyncTask(val dao: ItemDao, val item: ItemEntity) :
+        AsyncTask<Unit, Unit, Unit>() {
+        override fun doInBackground(vararg params: Unit?) {
+            try {
+                dao.delete(item)
+                Log.i("DELETE", "operation delete item successful")
+            } catch (e: Exception) {
+                Log.e("DELETE", "operation delete item failed")
+            }
+        }
+    }
+
 }

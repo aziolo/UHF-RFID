@@ -18,5 +18,9 @@ class ItemsViewModel(@NonNull application: Application?) : AndroidViewModel(appl
     fun updateStatus(item: ItemEntity){
         repository.update(item)
     }
+    fun delete(item: ItemEntity){
+        repository.deleteItem(item)
+    }
+
 
 }
